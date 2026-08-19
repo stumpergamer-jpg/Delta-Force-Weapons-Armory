@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta Force S10 - Armory Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0c0f15;
+            --bg-card: #141822;
+            --bg-card-glass: rgba(20, 24, 34, 0.85);
+            --bg-hover: #1c2230;
+            --accent-orange: #ff6b00;
+            --accent-orange-glow: rgba(255, 107, 0, 0.35);
+            --accent-blue: #00d2ff;
+            --accent-blue-glow: rgba(0, 210, 255, 0.35);
+            --accent-cyan: #00f0ff;
+            --text-main: #e6ebf5;
+            --text-muted: #8c97ab;
+            --border-color: #262e3e;
+            --border-highlight: #3a4760;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image:
+                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(255, 107, 0, 0.04) 0%, transparent 40%),
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+            color: var(--text-main);
+            padding: 24px;
+            min-height: 100vh;
+        }
+
+        header {
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .df-logo-badge {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%);
+            color: #000;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px var(--accent-orange-glow);
+        }
+
+        h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .lang-selector-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* FILTRES */
+        .filter-panel {
+            background-color: var(--bg-card-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-group label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select,
+        input {
+            background-color: #0d1017;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 9px 14px;
+            border-radius: 5px;
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px var(--accent-orange-glow);
+        }
+
+        /* TABLEAU */
+        .table-container {
+            overflow-x: auto;
+            background-color: var(--bg-card-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+
+        th,
+        td {
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #10141d;
+            color: var(--accent-orange);
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+        }
+
+        th:hover {
+            background-color: #171d2a;
+            color: #ff8c33;
+        }
+
+        tr {
+            transition: background-color 0.15s ease;
+        }
+
+        tr:hover {
+            background-color: var(--bg-hover);
+        }
+
+        /* NOM DE L'ARME & INTERACTION SURVOL */
+        .weapon-name-cell {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .weapon-name-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .weapon-name-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-orange));
+            transition: width 0.25s ease;
+        }
+
+        tr:hover .weapon-name-btn,
+        .weapon-name-btn:hover {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+
+        tr:hover .weapon-name-btn::after {
+            width: 100%;
+        }
+
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-type {
+            background-color: #1e2838;
+            color: var(--accent-blue);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .badge-range-courte {
+            background-color: #3d2020;
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .badge-range-moyenne {
+            background-color: #3d301c;
+            color: #ffbb44;
+            border: 1px solid rgba(255, 187, 68, 0.3);
+        }
+
+        .badge-range-longue {
+            background-color: #1c3d28;
+            color: #55ff88;
+            border: 1px solid rgba(85, 255, 136, 0.3);
+        }
+
+        .stat-val {
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .stat-high {
+            color: #55ff88;
+        }
+
+        .stat-mid {
+            color: #ffbb55;
+        }
+
+        .stat-low {
+            color: #ff6666;
+        }
+
+        /* CELLULE DU PRIX & MONNAIE */
+        .price-cell {
+            white-space: nowrap;
+        }
+
+        .price-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .df-currency-icon {
+            display: inline-block;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.5));
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        tr:hover .df-currency-icon {
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 0 7px rgba(0, 229, 255, 0.8));
+        }
+
+        .counter {
+            margin-top: 15px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* CARTE FLOTTANTE D'APERÇU DE L'ARME (HOVER PREVIEW) */
+        #weaponPreviewCard {
+            position: fixed;
+            z-index: 9999;
+            width: 340px;
+            background: linear-gradient(165deg, rgba(20, 26, 38, 0.96) 0%, rgba(12, 16, 24, 0.98) 100%);
+            border: 1px solid var(--accent-blue);
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.7),
+                0 0 25px rgba(0, 210, 255, 0.25),
+                inset 0 0 15px rgba(0, 210, 255, 0.05);
+            border-radius: 10px;
+            padding: 16px;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px) scale(0.96);
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s;
+            backdrop-filter: blur(16px);
+        }
+
+        #weaponPreviewCard.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .wpc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .wpc-title-col {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .wpc-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .wpc-caliber {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .wpc-image-box {
+            width: 100%;
+            height: 160px;
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.12) 0%, rgba(10, 14, 22, 0.8) 75%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 16px 16px, 16px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .wpc-img {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+            transition: transform 0.3s ease;
+        }
+
+        .wpc-image-box::before {
+            content: 'DELTA FORCE ARMORY';
+            position: absolute;
+            top: 6px;
+            left: 8px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: rgba(0, 210, 255, 0.4);
+            letter-spacing: 1px;
+        }
+
+        /* STAT BARS — style Delta Force */
+        .wpc-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 12px;
+        }
+
+        .wpc-bar-row {
+            display: grid;
+            grid-template-columns: 72px 1fr 24px;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .wpc-bar-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            font-family: 'Rajdhani', sans-serif;
+            white-space: nowrap;
+        }
+
+        .wpc-bar-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Tick marks every 25% */
+        .wpc-bar-track::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent calc(25% - 1px),
+                    rgba(0, 0, 0, 0.4) calc(25% - 1px),
+                    rgba(0, 0, 0, 0.4) 25%);
+            z-index: 2;
+        }
+
+        .wpc-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .wpc-bar-fill.bar-dmg {
+            background: linear-gradient(90deg, #ff4d00, #ff8c33);
+            box-shadow: 0 0 6px rgba(255, 107, 0, 0.5);
+        }
+
+        .wpc-bar-fill.bar-range {
+            background: linear-gradient(90deg, #00a8cc, #00d2ff);
+            box-shadow: 0 0 6px rgba(0, 210, 255, 0.4);
+        }
+
+        .wpc-bar-fill.bar-ctrl {
+            background: linear-gradient(90deg, #00c853, #69f0ae);
+            box-shadow: 0 0 6px rgba(0, 200, 83, 0.4);
+        }
+
+        .wpc-bar-fill.bar-hand {
+            background: linear-gradient(90deg, #7c4dff, #b388ff);
+            box-shadow: 0 0 6px rgba(124, 77, 255, 0.4);
+        }
+
+        .wpc-bar-fill.bar-stab {
+            background: linear-gradient(90deg, #ffab00, #ffd740);
+            box-shadow: 0 0 6px rgba(255, 171, 0, 0.4);
+        }
+
+        .wpc-bar-fill.bar-acc {
+            background: linear-gradient(90deg, #00e5ff, #80deea);
+            box-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+        }
+
+        .wpc-bar-val {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.75);
+            text-align: right;
+        }
+
+        .wpc-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
+        }
+
+        .wpc-price-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .wpc-price-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* RTL Support for Arabic */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body.rtl table {
+            text-align: right;
+        }
+
+        body.rtl .header-title-wrap {
+            flex-direction: row-reverse;
+        }
+
+        body.rtl .weapon-name-btn {
+            flex-direction: row-reverse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-title-wrap">
+            <span class="df-logo-badge">DELTA FORCE</span>
+            <h1 id="txt-title">Delta Force S10 - Armory Tool</h1>
+        </div>
+        <div class="lang-selector-container">
+            <label for="langSelect" id="txt-lang-label"
+                style="font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); font-weight:bold;">Language:</label>
+            <select id="langSelect">
+                <option value="en" selected>English</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="es">Español</option>
+                <option value="it">Italiano</option>
+                <option value="ar">العربية</option>
+                <option value="zh">中文</option>
+                <option value="ru">Русский</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Panneau de Filtres -->
+    <div class="filter-panel">
+        <div class="filter-group">
+            <label for="search" id="lbl-search">Search</label>
+            <input type="text" id="search" placeholder="...">
+        </div>
+
+        <div class="filter-group">
+            <label for="filterType" id="lbl-type">Weapon Type</label>
+            <select id="filterType">
+                <option value="ALL" id="opt-all-types">All Types</option>
+                <option value="Fusil">Fusil / Assault Rifle</option>
+                <option value="PM">PM / SMG</option>
+                <option value="Fusil à pompe">Shotgun</option>
+                <option value="Mitrailleuse (ML)">LMG</option>
+                <option value="Fusil de précision (FP)">Sniper Rifle</option>
+                <option value="Fusil tir de précision (FS)">Marksman Rifle</option>
+                <option value="Pistolet">Pistol</option>
+                <option value="Spécial">Special</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="filterCaliber" id="lbl-caliber">Caliber</label>
+            <select id="filterCaliber">
+                <option value="ALL" id="opt-all-calibers">All Calibers</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="filterRange" id="lbl-range">Effective Range</label>
+            <select id="filterRange">
+                <option value="ALL" id="opt-all-ranges">All Ranges</option>
+                <option value="Courte" id="opt-range-short">Short Range</option>
+                <option value="Moyenne" id="opt-range-mid">Medium Range</option>
+                <option value="Longue" id="opt-range-long">Long Range</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tableau d'affichage -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable('name')" id="th-name">Name ⇕</th>
+                    <th onclick="sortTable('type')" id="th-type">Type ⇕</th>
+                    <th onclick="sortTable('caliber')" id="th-caliber">Caliber ⇕</th>
+                    <th onclick="sortTable('damage')" id="th-damage">Damage ⇕</th>
+                    <th onclick="sortTable('penetration')" id="th-penetration">Penetration ⇕</th>
+                    <th onclick="sortTable('fireRate')" id="th-fireRate">Fire Rate ⇕</th>
+                    <th onclick="sortTable('muzzleVelocity')" id="th-muzzleVelocity">Muzzle Velocity ⇕</th>
+                    <th onclick="sortTable('rangeOrder')" id="th-rangeClass">Range ⇕</th>
+                    <th onclick="sortTable('price')" id="th-price">Base Price ⇕</th>
+                </tr>
+            </thead>
+            <tbody id="weaponTableBody">
+                <!-- Rempli dynamiquement -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="counter">
+        <span id="itemCount">Showing: 0 weapons</span>
+        <span id="hoverHelp" style="font-size:0.8rem; color:var(--accent-blue); opacity:0.85;">💡 Hover over a weapon
+            name to preview its Delta Force render</span>
+    </div>
+
+    <!-- CARTE D'APERÇU FLOTTANTE -->
+    <div id="weaponPreviewCard">
+        <div class="wpc-header">
+            <div class="wpc-title-col">
+                <div class="wpc-name" id="wpcName">M4A1</div>
+                <div class="wpc-caliber" id="wpcCaliber">5.56x45</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+                <span class="badge badge-type" id="wpcType">Assault Rifle</span>
+                <span class="badge badge-range-moyenne" id="wpcRange">Medium Range</span>
+            </div>
+        </div>
+
+        <div class="wpc-image-box">
+            <img id="wpcImg" class="wpc-img" src="" alt="Weapon Render">
+        </div>
+
+        <div class="wpc-bars" id="wpcBars">
+            <div class="wpc-bar-row">
+                <span class="wpc-bar-label" id="wpcLblDamage">Damage</span>
+                <div class="wpc-bar-track">
+                    <div class="wpc-bar-fill bar-dmg" id="wpcBarDamage" style="width:0%"></div>
+                </div>
+                <span class="wpc-bar-val" id="wpcValDamage">0</span>
+            </div>
+            <div class="wpc-bar-row">
+                <span class="wpc-bar-label" id="wpcLblRange">Range</span>
+                <div class="wpc-bar-track">
+                    <div class="wpc-bar-fill bar-range" id="wpcBarRange" style="width:0%"></div>
+                </div>
+                <span class="wpc-bar-val" id="wpcValRange">0</span>
+            </div>
+            <div class="wpc-bar-row">
+                <span class="wpc-bar-label" id="wpcLblControl">Control</span>
+                <div class="wpc-bar-track">
+                    <div class="wpc-bar-fill bar-ctrl" id="wpcBarControl" style="width:0%"></div>
+                </div>
+                <span class="wpc-bar-val" id="wpcValControl">0</span>
+            </div>
+            <div class="wpc-bar-row">
+                <span class="wpc-bar-label" id="wpcLblHandling">Handling</span>
+                <div class="wpc-bar-track">
+                    <div class="wpc-bar-fill bar-hand" id="wpcBarHandling" style="width:0%"></div>
+                </div>
+                <span class="wpc-bar-val" id="wpcValHandling">0</span>
+            </div>
+            <div class="wpc-bar-row">
+                <span class="wpc-bar-label" id="wpcLblStability">Stability</span>
+                <div class="wpc-bar-track">
+                    <div class="wpc-bar-fill bar-stab" id="wpcBarStability" style="width:0%"></div>
+                </div>
+                <span class="wpc-bar-val" id="wpcValStability">0</span>
+            </div>
+            <div class="wpc-bar-row">
+                <span class="wpc-bar-label" id="wpcLblAccuracy">Accuracy</span>
+                <div class="wpc-bar-track">
+                    <div class="wpc-bar-fill bar-acc" id="wpcBarAccuracy" style="width:0%"></div>
+                </div>
+                <span class="wpc-bar-val" id="wpcValAccuracy">0</span>
+            </div>
+        </div>
+
+        <div class="wpc-footer">
+            <span class="wpc-price-label" id="wpcLblPrice">Base Price</span>
+            <div class="wpc-price-display">
+                <span id="wpcPrice">79,681</span>
+                <span id="wpcCurrencyIcon"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ICÔNE OFFICIELLE DE LA MONNAIE (ALLIAGE TEKNIQ / TEKNIQ ALLOY) DANS DELTA FORCE
+        function getCurrencyIconSvg(size = 18) {
+            return `
+                <svg class="df-currency-icon" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="dfAlloyOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f0ff" />
+                            <stop offset="50%" stop-color="#0099cc" />
+                            <stop offset="100%" stop-color="#004c6d" />
+                        </linearGradient>
+                        <linearGradient id="dfAlloyInner" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff" />
+                            <stop offset="40%" stop-color="#7bf0ff" />
+                            <stop offset="100%" stop-color="#00bcd4" />
+                        </linearGradient>
+                        <filter id="dfGlowFX" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur stdDeviation="1.5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    <!-- Hexagonal Tech Ingot -->
+                    <polygon points="12,1.8 21.2,7.1 21.2,16.9 12,22.2 2.8,16.9 2.8,7.1" fill="url(#dfAlloyOuter)" stroke="#00f0ff" stroke-width="1.3" stroke-linejoin="round" />
+                    <!-- Inner Facet -->
+                    <polygon points="12,4.8 18.2,8.4 18.2,15.6 12,19.2 5.8,15.6 5.8,8.4" fill="#09131d" stroke="#00c8e6" stroke-width="0.8" opacity="0.9" />
+                    <!-- Glowing Central Core -->
+                    <polygon points="12,7.8 15.5,9.8 15.5,14.2 12,16.2 8.5,14.2 8.5,9.8" fill="url(#dfAlloyInner)" filter="url(#dfGlowFX)" />
+                    <!-- Tactical Bevel Lines -->
+                    <line x1="12" y1="1.8" x2="12" y2="4.8" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" />
+                    <line x1="21.2" y1="7.1" x2="18.2" y2="8.4" stroke="#ffffff" stroke-width="0.9" />
+                    <line x1="21.2" y1="16.9" x2="18.2" y2="15.6" stroke="#00f0ff" stroke-width="0.9" />
+                    <line x1="12" y1="22.2" x2="12" y2="19.2" stroke="#00a0dc" stroke-width="0.9" />
+                    <line x1="2.8" y1="16.9" x2="5.8" y2="15.6" stroke="#00f0ff" stroke-width="0.9" />
+                    <line x1="2.8" y1="7.1" x2="5.8" y2="8.4" stroke="#ffffff" stroke-width="0.9" />
+                </svg>`;
+        }
+
+        // DICTIONNAIRE MULTILINGUE
+        const translations = {
+            en: {
+                title: "Delta Force S10 - Armory Tool",
+                langLabel: "Language:",
+                search: "Search",
+                searchPh: "Weapon name...",
+                type: "Weapon Type",
+                caliber: "Caliber",
+                range: "Effective Range",
+                allTypes: "All Types",
+                allCalibers: "All Calibers",
+                allRanges: "All Ranges",
+                thName: "Name ⇕",
+                thType: "Type ⇕",
+                thCaliber: "Caliber ⇕",
+                thDamage: "Damage ⇕",
+                thPenetration: "Penetration ⇕",
+                thFireRate: "Fire Rate (rpm) ⇕",
+                thMuzzleVelocity: "Muzzle Vel. (m/s) ⇕",
+                thRange: "Range ⇕",
+                thPrice: "Base Price ⇕",
+                showing: "Showing: {count} / {total} weapon(s)",
+                currency: "Tekniq Alloy",
+                hoverHint: "💡 Hover over a weapon name to preview its in-game render",
+                rangeShort: "Short Range",
+                rangeMid: "Medium Range",
+                rangeLong: "Long Range",
+                lblDamage: "Damage",
+                lblRange: "Range",
+                lblControl: "Control",
+                lblHandling: "Handling",
+                lblStability: "Stability",
+                lblAccuracy: "Accuracy",
+                lblPen: "Penetration",
+                lblFireRate: "Fire Rate",
+                lblVel: "Muzzle Vel.",
+                lblPrice: "Base Price",
+                types: {
+                    "Fusil": "Assault Rifle",
+                    "PM": "SMG",
+                    "Fusil à pompe": "Shotgun",
+                    "Mitrailleuse (ML)": "LMG",
+                    "Fusil de précision (FP)": "Sniper Rifle",
+                    "Fusil tir de précision (FS)": "Marksman Rifle",
+                    "Pistolet": "Pistol",
+                    "Spécial": "Special"
+                }
+            },
+            fr: {
+                title: "Delta Force S10 - Outil Armurerie",
+                langLabel: "Langue :",
+                search: "Recherche",
+                searchPh: "Nom de l'arme...",
+                type: "Type d'Arme",
+                caliber: "Calibre",
+                range: "Portée Effective",
+                allTypes: "Tous les types",
+                allCalibers: "Tous les calibres",
+                allRanges: "Toutes les portées",
+                thName: "Nom ⇕",
+                thType: "Type ⇕",
+                thCaliber: "Calibre ⇕",
+                thDamage: "Dégâts ⇕",
+                thPenetration: "Pénétration ⇕",
+                thFireRate: "Cadence (t/min) ⇕",
+                thMuzzleVelocity: "Vitesse Bouche (m/s) ⇕",
+                thRange: "Portée ⇕",
+                thPrice: "Prix à nu ⇕",
+                showing: "Affichage : {count} / {total} arme(s)",
+                currency: "Alliage Tekniq",
+                hoverHint: "💡 Survolez le nom d'une arme pour afficher son rendu en jeu",
+                rangeShort: "Courte portée",
+                rangeMid: "Moyenne portée",
+                rangeLong: "Longue portée",
+                lblDamage: "Dégâts",
+                lblRange: "Portée",
+                lblControl: "Contrôle",
+                lblHandling: "Maniabilité",
+                lblStability: "Stabilité",
+                lblAccuracy: "Précision",
+                lblPen: "Pénétration",
+                lblFireRate: "Cadence",
+                lblVel: "Vitesse Bouche",
+                lblPrice: "Prix de base",
+                types: {
+                    "Fusil": "Fusil d'assaut",
+                    "PM": "Pistolet Mitrailleur",
+                    "Fusil à pompe": "Fusil à pompe",
+                    "Mitrailleuse (ML)": "Mitrailleuse",
+                    "Fusil de précision (FP)": "Fusil de précision",
+                    "Fusil tir de précision (FS)": "Tir de précision",
+                    "Pistolet": "Pistolet",
+                    "Spécial": "Spécial"
+                }
+            },
+            de: {
+                title: "Delta Force S10 - Waffenkammer",
+                langLabel: "Sprache:",
+                search: "Suche",
+                searchPh: "Waffenname...",
+                type: "Waffentyp",
+                caliber: "Kaliber",
+                range: "Reichweite",
+                allTypes: "Alle Typen",
+                allCalibers: "Alle Kaliber",
+                allRanges: "Alle Reichweiten",
+                thName: "Name ⇕",
+                thType: "Typ ⇕",
+                thCaliber: "Kaliber ⇕",
+                thDamage: "Schaden ⇕",
+                thPenetration: "Durchschlag ⇕",
+                thFireRate: "Kadenz (Schuss/m) ⇕",
+                thMuzzleVelocity: "Mündungsgeschw. (m/s) ⇕",
+                thRange: "Reichweite ⇕",
+                thPrice: "Grundpreis ⇕",
+                showing: "Angezeigt: {count} / {total} Waffe(n)",
+                currency: "Tekniq-Legierung",
+                hoverHint: "💡 Bewegen Sie den Mauszeiger über einen Waffennamen für die Vorschau",
+                rangeShort: "Kurze Reichweite",
+                rangeMid: "Mittlere Reichweite",
+                rangeLong: "Hohe Reichweite",
+                lblDamage: "Schaden",
+                lblRange: "Reichweite",
+                lblControl: "Kontrolle",
+                lblHandling: "Handhabung",
+                lblStability: "Stabilität",
+                lblAccuracy: "Präzision",
+                lblPen: "Durchschlag",
+                lblFireRate: "Kadenz",
+                lblVel: "Mündungsgeschw.",
+                lblPrice: "Grundpreis",
+                types: {
+                    "Fusil": "Sturmgewehr",
+                    "PM": "MP",
+                    "Fusil à pompe": "Schrotflinte",
+                    "Mitrailleuse (ML)": "LMG",
+                    "Fusil de précision (FP)": "Scharfschützengewehr",
+                    "Fusil tir de précision (FS)": "Zielfernrohrgewehr",
+                    "Pistolet": "Pistole",
+                    "Spécial": "Spezial"
+                }
+            },
+            es: {
+                title: "Delta Force S10 - Armería",
+                langLabel: "Idioma:",
+                search: "Buscar",
+                searchPh: "Nombre del arma...",
+                type: "Tipo de Arma",
+                caliber: "Calibre",
+                range: "Alcance Efectivo",
+                allTypes: "Todos los tipos",
+                allCalibers: "Todos los calibres",
+                allRanges: "Todos los alcances",
+                thName: "Nombre ⇕",
+                thType: "Tipo ⇕",
+                thCaliber: "Calibre ⇕",
+                thDamage: "Daño ⇕",
+                thPenetration: "Penetración ⇕",
+                thFireRate: "Cadencia (dpm) ⇕",
+                thMuzzleVelocity: "Velocidad de boca (m/s) ⇕",
+                thRange: "Alcance ⇕",
+                thPrice: "Precio base ⇕",
+                showing: "Mostrando: {count} / {total} arma(s)",
+                currency: "Aleación Tekniq",
+                hoverHint: "💡 Pasa el cursor sobre el nombre del arma para ver su imagen",
+                rangeShort: "Alcance Corto",
+                rangeMid: "Alcance Medio",
+                rangeLong: "Alcance Largo",
+                lblDamage: "Daño",
+                lblRange: "Alcance",
+                lblControl: "Control",
+                lblHandling: "Manejo",
+                lblStability: "Estabilidad",
+                lblAccuracy: "Precisión",
+                lblPen: "Penetración",
+                lblFireRate: "Cadencia",
+                lblVel: "Velocidad Boca",
+                lblPrice: "Precio Base",
+                types: {
+                    "Fusil": "Fusil de Asalto",
+                    "PM": "Subfusil",
+                    "Fusil à pompe": "Escopeta",
+                    "Mitrailleuse (ML)": "Ametralladora",
+                    "Fusil de précision (FP)": "Fusil de Francotirador",
+                    "Fusil tir de précision (FS)": "Fusil Táctico",
+                    "Pistolet": "Pistola",
+                    "Spécial": "Especial"
+                }
+            },
+            it: {
+                title: "Delta Force S10 - Armeria",
+                langLabel: "Lingua:",
+                search: "Cerca",
+                searchPh: "Nome arma...",
+                type: "Tipo di Arma",
+                caliber: "Calibro",
+                range: "Gittata Efficace",
+                allTypes: "Tutti i tipi",
+                allCalibers: "Tutti i calibri",
+                allRanges: "Tutte le gittate",
+                thName: "Nome ⇕",
+                thType: "Tipo ⇕",
+                thCaliber: "Calibro ⇕",
+                thDamage: "Danno ⇕",
+                thPenetration: "Penetrazione ⇕",
+                thFireRate: "Cadenza (colpi/m) ⇕",
+                thMuzzleVelocity: "Velocità alla bocca (m/s) ⇕",
+                thRange: "Gittata ⇕",
+                thPrice: "Prezzo base ⇕",
+                showing: "Mostrati: {count} / {total} armi",
+                currency: "Lega Tekniq",
+                hoverHint: "💡 Passa il mouse sul nome dell'arma per visualizzarla",
+                rangeShort: "Corta Gittata",
+                rangeMid: "Media Gittata",
+                rangeLong: "Lunga Gittata",
+                lblDamage: "Danno",
+                lblRange: "Gittata",
+                lblControl: "Controllo",
+                lblHandling: "Maneggevolezza",
+                lblStability: "Stabilità",
+                lblAccuracy: "Precisione",
+                lblPen: "Penetrazione",
+                lblFireRate: "Cadenza",
+                lblVel: "Velocità Bocca",
+                lblPrice: "Prezzo Base",
+                types: {
+                    "Fusil": "Fucile d'Assalto",
+                    "PM": "Mitra",
+                    "Fusil à pompe": "Fucile a Canna Liscia",
+                    "Mitrailleuse (ML)": "Mitragliatrice",
+                    "Fusil de précision (FP)": "Fucile da Cecchino",
+                    "Fusil tir de précision (FS)": "Fucile Tattico",
+                    "Pistolet": "Pistola",
+                    "Spécial": "Speciale"
+                }
+            },
+            ar: {
+                title: "دلتا فورس S10 - أداة الترسانة",
+                langLabel: "اللغة:",
+                search: "بحث",
+                searchPh: "اسم السلاح...",
+                type: "نوع السلاح",
+                caliber: "العيار",
+                range: "المدى الفعال",
+                allTypes: "جميع الأنواع",
+                allCalibers: "جميع العيارات",
+                allRanges: "جميع المدى",
+                thName: "الاسم ⇕",
+                thType: "النوع ⇕",
+                thCaliber: "العيار ⇕",
+                thDamage: "الضرر ⇕",
+                thPenetration: "اختراق الدروع ⇕",
+                thFireRate: "معدل الإطلاق ⇕",
+                thMuzzleVelocity: "سرعة الطلقة (م/ث) ⇕",
+                thRange: "المدى ⇕",
+                thPrice: "السعر الأساسي ⇕",
+                showing: "عرض: {count} / {total} سلاح",
+                currency: "سبيكة تيكنيك (Tekniq)",
+                hoverHint: "💡 مرر الفأرة فوق اسم السلاح لمعاينة صورته داخل اللعبة",
+                rangeShort: "مدى قريب",
+                rangeMid: "مدى متوسط",
+                rangeLong: "مدى بعيد",
+                lblDamage: "الضرر",
+                lblRange: "المدى",
+                lblControl: "التحكم",
+                lblHandling: "التعامل",
+                lblStability: "الثبات",
+                lblAccuracy: "الدقة",
+                lblPen: "الاختراق",
+                lblFireRate: "معدل الإطلاق",
+                lblVel: "سرعة الطلقة",
+                lblPrice: "السعر الأساسي",
+                types: {
+                    "Fusil": "بندقية هجومية",
+                    "PM": "رشاش قصير",
+                    "Fusil à pompe": "بندقية صيد",
+                    "Mitrailleuse (ML)": "رشاش خفيف",
+                    "Fusil de précision (FP)": "بندقية قنص",
+                    "Fusil tir de précision (FS)": "بندقية رماية دقيقة",
+                    "Pistolet": "مسدس",
+                    "Spécial": "خاص"
+                }
+            },
+            zh: {
+                title: "三角洲行动 S10 - 武器库工具",
+                langLabel: "语言:",
+                search: "搜索",
+                searchPh: "武器名称...",
+                type: "武器类型",
+                caliber: "口径",
+                range: "有效射程",
+                allTypes: "所有类型",
+                allCalibers: "所有口径",
+                allRanges: "所有射程",
+                thName: "名称 ⇕",
+                thType: "类型 ⇕",
+                thCaliber: "口径 ⇕",
+                thDamage: "伤害 ⇕",
+                thPenetration: "护甲穿透 ⇕",
+                thFireRate: "射速 (发/分) ⇕",
+                thMuzzleVelocity: "初速 (米/秒) ⇕",
+                thRange: "射程 ⇕",
+                thPrice: "裸枪价格 ⇕",
+                showing: "显示：{count} / {total} 把武器",
+                currency: "Tekniq 合金",
+                hoverHint: "💡 悬停在武器名称上可预览游戏内渲染图",
+                rangeShort: "近距离",
+                rangeMid: "中距离",
+                rangeLong: "远距离",
+                lblDamage: "伤害",
+                lblRange: "射程",
+                lblControl: "控制",
+                lblHandling: "机动性",
+                lblStability: "稳定性",
+                lblAccuracy: "准确性",
+                lblPen: "穿透",
+                lblFireRate: "射速",
+                lblVel: "枪口初速",
+                lblPrice: "基础价格",
+                types: {
+                    "Fusil": "突击步枪",
+                    "PM": "冲锋枪",
+                    "Fusil à pompe": "霰弹枪",
+                    "Mitrailleuse (ML)": "轻机枪",
+                    "Fusil de précision (FP)": "狙击步枪",
+                    "Fusil tir de précision (FS)": "射手步枪",
+                    "Pistolet": "手枪",
+                    "Spécial": "特殊武器"
+                }
+            },
+            ru: {
+                title: "Delta Force S10 - Оружейная",
+                langLabel: "Язык:",
+                search: "Поиск",
+                searchPh: "Название оружия...",
+                type: "Тип оружия",
+                caliber: "Калибр",
+                range: "Эффективная дальность",
+                allTypes: "Все типы",
+                allCalibers: "Все калибры",
+                allRanges: "Любая дальность",
+                thName: "Название ⇕",
+                thType: "Тип ⇕",
+                thCaliber: "Калибр ⇕",
+                thDamage: "Урон ⇕",
+                thPenetration: "Пробитие ⇕",
+                thFireRate: "Скорострельность ⇕",
+                thMuzzleVelocity: "Скор. пули (м/с) ⇕",
+                thRange: "Дальность ⇕",
+                thPrice: "Базовая цена ⇕",
+                showing: "Показано: {count} из {total} оруд.",
+                currency: "Сплав Tekniq",
+                hoverHint: "💡 Наведите курсор на оружие для просмотра изображения",
+                rangeShort: "Малая дальность",
+                rangeMid: "Средняя дальность",
+                rangeLong: "Большая дальность",
+                lblDamage: "Урон",
+                lblRange: "Дальность",
+                lblControl: "Контроль",
+                lblHandling: "Управляемость",
+                lblStability: "Стабильность",
+                lblAccuracy: "Точность",
+                lblPen: "Пробитие",
+                lblFireRate: "Скорострельность",
+                lblVel: "Скор. пули",
+                lblPrice: "Базовая цена",
+                types: {
+                    "Fusil": "Штурмовая винтовка",
+                    "PM": "ПП",
+                    "Fusil à pompe": "Дробовик",
+                    "Mitrailleuse (ML)": "Пулемет",
+                    "Fusil de précision (FP)": "Снайперская винтовка",
+                    "Fusil tir de précision (FS)": "Марксманская винтовка",
+                    "Pistolet": "Пистолет",
+                    "Spécial": "Специальное"
+                }
+            }
+        };
+
+        // BASE DE DONNÉES DES ARMES AVEC CHEMINS D'IMAGES DU JEU DELTA FORCE
+        // Stats (damage, range, control, handling, stability, accuracy) sourced from deltaforcedb.com
+        const weaponsData = [
+            { name: "RM277", type: "Fusil", caliber: "6.8x51", damage: 41, penetration: 42, fireRate: 550, muzzleVelocity: 650, price: 68347, img: "images/weapons/rm277.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/RM277.png", statDmg: 41, statRange: 55, statCtrl: 48, statHand: 55, statStab: 59, statAcc: 44 },
+            { name: "AR-57", type: "Fusil", caliber: "5.7x28", damage: 30, penetration: 31, fireRate: 900, muzzleVelocity: 525, price: 217573, img: "images/weapons/ar-57.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/AR-57.png", statDmg: 30, statRange: 35, statCtrl: 41, statHand: 58, statStab: 40, statAcc: 60 },
+            { name: "MCX LT", type: "Fusil", caliber: "300 BLK", damage: 34, penetration: 26, fireRate: 840, muzzleVelocity: 450, price: 74823, img: "images/weapons/mcx-lt.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/MCX_20LT.png", statDmg: 34, statRange: 30, statCtrl: 44, statHand: 61, statStab: 52, statAcc: 57 },
+            { name: "MK47", type: "Fusil", caliber: "7.62x39", damage: 42, penetration: 46, fireRate: 625, muzzleVelocity: 525, price: 202074, img: "images/weapons/mk47.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/MK47.png", statDmg: 42, statRange: 30, statCtrl: 35, statHand: 55, statStab: 50, statAcc: 53 },
+            { name: "KC-17", type: "Fusil", caliber: "5.45x39", damage: 31, penetration: 48, fireRate: 740, muzzleVelocity: 575, price: 197717, img: "images/weapons/kc17.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/KC17.png", statDmg: 31, statRange: 55, statCtrl: 53, statHand: 53, statStab: 48, statAcc: 45 },
+            { name: "K437", type: "Fusil", caliber: "300 BLK", damage: 36, penetration: 32, fireRate: 780, muzzleVelocity: 575, price: 179901, img: "images/weapons/k437.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/K437.png", statDmg: 36, statRange: 35, statCtrl: 45, statHand: 48, statStab: 53, statAcc: 49 },
+            { name: "CI-19", type: "Fusil", caliber: "5.8x42", damage: 35, penetration: 38, fireRate: 706, muzzleVelocity: 575, price: 72997, img: "images/weapons/ci-19.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ci-19.webp", statDmg: 35, statRange: 35, statCtrl: 40, statHand: 60, statStab: 50, statAcc: 56 },
+            { name: "AS Val", type: "Fusil", caliber: "9x39", damage: 28, penetration: 44, fireRate: 972, muzzleVelocity: 300, price: 285787, img: "images/weapons/as-val.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/as-val.webp", statDmg: 28, statRange: 21, statCtrl: 43, statHand: 62, statStab: 51, statAcc: 57 },
+            { name: "CAR-15", type: "Fusil", caliber: "5.56x45", damage: 27, penetration: 32, fireRate: 632, muzzleVelocity: 575, price: 8285, img: "images/weapons/car-15.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/car-15.webp", statDmg: 27, statRange: 40, statCtrl: 50, statHand: 58, statStab: 55, statAcc: 53 },
+            { name: "PTR-32", type: "Fusil", caliber: "7.62x39", damage: 36, penetration: 37, fireRate: 632, muzzleVelocity: 630, price: 28233, img: "images/weapons/ptr-32.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ptr-32.webp", statDmg: 36, statRange: 40, statCtrl: 32, statHand: 56, statStab: 57, statAcc: 45 },
+            { name: "G3", type: "Fusil", caliber: "7.62x51", damage: 39, penetration: 42, fireRate: 533, muzzleVelocity: 630, price: 35425, img: "images/weapons/g3.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/g3.webp", statDmg: 39, statRange: 55, statCtrl: 32, statHand: 51, statStab: 62, statAcc: 45 },
+            { name: "SCAR-H", type: "Fusil", caliber: "7.62x51", damage: 40, penetration: 41, fireRate: 585, muzzleVelocity: 630, price: 71778, img: "images/weapons/scar-h.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/scar-h.webp", statDmg: 40, statRange: 40, statCtrl: 40, statHand: 58, statStab: 55, statAcc: 45 },
+            { name: "AK-12", type: "Fusil", caliber: "5.45x39", damage: 30, penetration: 42, fireRate: 735, muzzleVelocity: 575, price: 46362, img: "images/weapons/ak-12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ak-12.webp", statDmg: 30, statRange: 40, statCtrl: 48, statHand: 57, statStab: 56, statAcc: 54 },
+            { name: "SG552", type: "Fusil", caliber: "5.56x45", damage: 25, penetration: 34, fireRate: 906, muzzleVelocity: 575, price: 27721, img: "images/weapons/sg552.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/sg552.webp", statDmg: 25, statRange: 35, statCtrl: 46, statHand: 61, statStab: 52, statAcc: 53 },
+            { name: "M7", type: "Fusil", caliber: "6.8x51", damage: 40, penetration: 20, fireRate: 649, muzzleVelocity: 630, price: 211556, img: "images/weapons/m7.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m7.webp", statDmg: 37, statRange: 50, statCtrl: 34, statHand: 51, statStab: 58, statAcc: 43 },
+            { name: "AUG", type: "Fusil", caliber: "5.56x45", damage: 32, penetration: 35, fireRate: 679, muzzleVelocity: 575, price: 95477, img: "images/weapons/aug.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/aug.webp", statDmg: 32, statRange: 55, statCtrl: 60, statHand: 54, statStab: 59, statAcc: 53 },
+            { name: "M16A4", type: "Fusil", caliber: "5.56x45", damage: 33, penetration: 39, fireRate: 508, muzzleVelocity: 575, price: 8200, img: "images/weapons/m16a4.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m16a4.webp", statDmg: 33, statRange: 55, statCtrl: 40, statHand: 56, statStab: 57, statAcc: 54 },
+            { name: "K416", type: "Fusil", caliber: "5.56x45", damage: 31, penetration: 35, fireRate: 880, muzzleVelocity: 575, price: 152527, img: "images/weapons/k416.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/k416.webp", statDmg: 31, statRange: 27, statCtrl: 44, statHand: 61, statStab: 52, statAcc: 57 },
+            { name: "ASh-12", type: "Fusil", caliber: "12.7x55", damage: 56, penetration: 55, fireRate: 500, muzzleVelocity: 340, price: 199883, img: "images/weapons/ash-12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ash-12.webp", statDmg: 56, statRange: 55, statCtrl: 24, statHand: 57, statStab: 64, statAcc: 43 },
+            { name: "AKS-74", type: "Fusil", caliber: "5.45x39", damage: 34, penetration: 36, fireRate: 533, muzzleVelocity: 500, price: 8454, img: "images/weapons/aks-74.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/aks-74.webp", statDmg: 34, statRange: 40, statCtrl: 35, statHand: 60, statStab: 53, statAcc: 52 },
+            { name: "QBZ95-1", type: "Fusil", caliber: "5.8x42", damage: 28, penetration: 42, fireRate: 679, muzzleVelocity: 575, price: 29597, img: "images/weapons/qbz95-1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/qbz95-1.webp", statDmg: 28, statRange: 55, statCtrl: 52, statHand: 55, statStab: 58, statAcc: 54 },
+            { name: "AKM", type: "Fusil", caliber: "7.62x39", damage: 40, penetration: 42, fireRate: 600, muzzleVelocity: 525, price: 63495, img: "images/weapons/akm.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/akm.webp", statDmg: 40, statRange: 40, statCtrl: 39, statHand: 54, statStab: 55, statAcc: 53 },
+            { name: "M4A1", type: "Fusil", caliber: "5.56x45", damage: 31, penetration: 33, fireRate: 800, muzzleVelocity: 575, price: 79681, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 31, statRange: 40, statCtrl: 41, statHand: 58, statStab: 55, statAcc: 55 }
+        ];
+
+        // Calcul de la portée et affectation de la valeur numérique de tri (1: Courte, 2: Moyenne, 3: Longue)
+        weaponsData.forEach(w => {
+            if (w.muzzleVelocity < 400) {
+                w.rangeClass = "Courte";
+                w.rangeOrder = 1;
+            } else if (w.muzzleVelocity <= 600) {
+                w.rangeClass = "Moyenne";
+                w.rangeOrder = 2;
+            } else {
+                w.rangeClass = "Longue";
+                w.rangeOrder = 3;
+            }
+        });
+
+        let currentLang = 'en';
+        let currentSort = { column: 'penetration', ascending: false };
+        const previewCard = document.getElementById('weaponPreviewCard');
+
+        document.addEventListener("DOMContentLoaded", () => {
+            populateCaliberFilter();
+            updateLanguage(currentLang);
+
+            // Événements
+            document.getElementById('langSelect').addEventListener('change', (e) => updateLanguage(e.target.value));
+            document.getElementById('search').addEventListener('input', renderTable);
+            document.getElementById('filterType').addEventListener('change', renderTable);
+            document.getElementById('filterCaliber').addEventListener('change', renderTable);
+            document.getElementById('filterRange').addEventListener('change', renderTable);
+
+            // Masquer la carte d'aperçu en cas de défilement ou sortie de la page
+            window.addEventListener('scroll', hidePreviewCard);
+            document.addEventListener('mouseleave', hidePreviewCard);
+        });
+
+        function populateCaliberFilter() {
+            const caliberSelect = document.getElementById('filterCaliber');
+            const calibers = [...new Set(weaponsData.map(w => w.caliber))].sort();
+            calibers.forEach(cal => {
+                const option = document.createElement('option');
+                option.value = cal;
+                option.textContent = cal;
+                caliberSelect.appendChild(option);
+            });
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // RTL Support
+            if (lang === 'ar') document.body.classList.add('rtl');
+            else document.body.classList.remove('rtl');
+
+            // Textes statiques
+            document.getElementById('txt-title').textContent = t.title;
+            document.getElementById('txt-lang-label').textContent = t.langLabel;
+            document.getElementById('lbl-search').textContent = t.search;
+            document.getElementById('search').placeholder = t.searchPh;
+            document.getElementById('lbl-type').textContent = t.type;
+            document.getElementById('lbl-caliber').textContent = t.caliber;
+            document.getElementById('lbl-range').textContent = t.range;
+            document.getElementById('hoverHelp').textContent = t.hoverHint;
+
+            document.getElementById('opt-all-types').textContent = t.allTypes;
+            document.getElementById('opt-all-calibers').textContent = t.allCalibers;
+            document.getElementById('opt-all-ranges').textContent = t.allRanges;
+
+            document.getElementById('opt-range-short').textContent = t.rangeShort;
+            document.getElementById('opt-range-mid').textContent = t.rangeMid;
+            document.getElementById('opt-range-long').textContent = t.rangeLong;
+
+            document.getElementById('th-name').textContent = t.thName;
+            document.getElementById('th-type').textContent = t.thType;
+            document.getElementById('th-caliber').textContent = t.thCaliber;
+            document.getElementById('th-damage').textContent = t.thDamage;
+            document.getElementById('th-penetration').textContent = t.thPenetration;
+            document.getElementById('th-fireRate').textContent = t.thFireRate;
+            document.getElementById('th-muzzleVelocity').textContent = t.thMuzzleVelocity;
+            document.getElementById('th-rangeClass').textContent = t.thRange;
+
+            // Header Base Price avec l'icône de monnaie
+            document.getElementById('th-price').innerHTML = `${t.thPrice} ${getCurrencyIconSvg(15)}`;
+
+            // Labels carte de prévisualisation — barres de stats
+            document.getElementById('wpcLblDamage').textContent = t.lblDamage;
+            document.getElementById('wpcLblRange').textContent = t.lblRange;
+            document.getElementById('wpcLblControl').textContent = t.lblControl;
+            document.getElementById('wpcLblHandling').textContent = t.lblHandling;
+            document.getElementById('wpcLblStability').textContent = t.lblStability;
+            document.getElementById('wpcLblAccuracy').textContent = t.lblAccuracy;
+            document.getElementById('wpcLblPrice').textContent = t.lblPrice;
+
+            renderTable();
+        }
+
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort.column = column;
+                currentSort.ascending = (column === 'rangeOrder') ? true : false;
+            }
+            renderTable();
+        }
+
+        function renderTable() {
+            const t = translations[currentLang];
+            const searchValue = document.getElementById('search').value.toLowerCase();
+            const typeValue = document.getElementById('filterType').value;
+            const caliberValue = document.getElementById('filterCaliber').value;
+            const rangeValue = document.getElementById('filterRange').value;
+
+            // Filtrage
+            let filtered = weaponsData.filter(w => {
+                const matchesSearch = w.name.toLowerCase().includes(searchValue);
+                const matchesType = typeValue === 'ALL' || w.type === typeValue;
+                const matchesCaliber = caliberValue === 'ALL' || w.caliber === caliberValue;
+                const matchesRange = rangeValue === 'ALL' || w.rangeClass === rangeValue;
+
+                return matchesSearch && matchesType && matchesCaliber && matchesRange;
+            });
+
+            // Tri
+            filtered.sort((a, b) => {
+                let valA = a[currentSort.column];
+                let valB = b[currentSort.column];
+
+                if (typeof valA === 'string') {
+                    return currentSort.ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                } else {
+                    return currentSort.ascending ? valA - valB : valB - valA;
+                }
+            });
+
+            // Rendu
+            const tbody = document.getElementById('weaponTableBody');
+            tbody.innerHTML = '';
+
+            filtered.forEach(w => {
+                const tr = document.createElement('tr');
+
+                let rangeBadgeClass = "badge-range-moyenne";
+                let translatedRange = t.rangeMid;
+                if (w.rangeClass === "Courte") {
+                    rangeBadgeClass = "badge-range-courte";
+                    translatedRange = t.rangeShort;
+                } else if (w.rangeClass === "Longue") {
+                    rangeBadgeClass = "badge-range-longue";
+                    translatedRange = t.rangeLong;
+                }
+
+                const translatedType = t.types[w.type] || w.type;
+                const currencySvg = getCurrencyIconSvg(18);
+
+                tr.innerHTML = `
+                    <td class="weapon-name-cell" data-weapon-name="${w.name}">
+                        <span class="weapon-name-btn">
+                        <strong>${w.name}</strong>
+                        </span>
+                    </td>`;
+                tr.innerHTML += `
+                    <td><span class="badge badge-type">${translatedType}</span></td>
+                    <td>${w.caliber}</td>
+                    <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${w.damage}</td>
+                    <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${w.penetration}</td>
+                    <td>${w.fireRate}</td>
+                    <td>${w.muzzleVelocity}</td>
+                    <td><span class="badge ${rangeBadgeClass}">${translatedRange}</span></td>
+                    <td class="price-cell">
+                        <span class="price-wrapper" title="${t.currency}">
+                        <span>${w.price.toLocaleString(currentLang)}</span>
+                        ${currencySvg}
+                        </span>
+                    </td>
+                    `;
+
+                // Attachement des événements de survol pour l'aperçu de l'arme
+                const nameCell = tr.querySelector('.weapon-name-cell');
+                nameCell.addEventListener('mouseenter', (e) => showPreviewCard(e, w));
+                nameCell.addEventListener('mousemove', (e) => positionPreviewCard(e));
+                nameCell.addEventListener('mouseleave', hidePreviewCard);
+
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('itemCount').textContent = t.showing
+                .replace('{count}', filtered.length)
+                .replace('{total}', weaponsData.length);
+        }
+
+        // GESTION DU SURVOL (HOVER PREVIEW)
+        function showPreviewCard(e, weapon) {
+            const t = translations[currentLang];
+
+            document.getElementById('wpcName').textContent = weapon.name;
+            document.getElementById('wpcCaliber').textContent = weapon.caliber;
+            document.getElementById('wpcType').textContent = t.types[weapon.type] || weapon.type;
+
+            const rangeElem = document.getElementById('wpcRange');
+            rangeElem.className = 'badge';
+            if (weapon.rangeClass === "Courte") {
+                rangeElem.classList.add('badge-range-courte');
+                rangeElem.textContent = t.rangeShort;
+            } else if (weapon.rangeClass === "Longue") {
+                rangeElem.classList.add('badge-range-longue');
+                rangeElem.textContent = t.rangeLong;
+            } else {
+                rangeElem.classList.add('badge-range-moyenne');
+                rangeElem.textContent = t.rangeMid;
+            }
+
+            // Image de l'arme avec gestion fallback
+            const imgElem = document.getElementById('wpcImg');
+            imgElem.src = weapon.img;
+            imgElem.onerror = function () {
+                if (weapon.fallback && this.src !== weapon.fallback) {
+                    this.src = weapon.fallback;
+                }
+            };
+
+            // Barres de statistiques
+            function setBar(barId, valId, value) {
+                document.getElementById(barId).style.width = value + '%';
+                document.getElementById(valId).textContent = value;
+            }
+            setBar('wpcBarDamage', 'wpcValDamage', weapon.statDmg);
+            setBar('wpcBarRange', 'wpcValRange', weapon.statRange);
+            setBar('wpcBarControl', 'wpcValControl', weapon.statCtrl);
+            setBar('wpcBarHandling', 'wpcValHandling', weapon.statHand);
+            setBar('wpcBarStability', 'wpcValStability', weapon.statStab);
+            setBar('wpcBarAccuracy', 'wpcValAccuracy', weapon.statAcc);
+
+            document.getElementById('wpcPrice').textContent = weapon.price.toLocaleString(currentLang);
+            document.getElementById('wpcCurrencyIcon').innerHTML = getCurrencyIconSvg(20);
+
+            positionPreviewCard(e);
+            previewCard.classList.add('active');
+        }
+
+        function positionPreviewCard(e) {
+            const cardWidth = 340;
+            const cardHeight = 420;
+            const margin = 18;
+
+            let left = e.clientX + margin;
+            let top = e.clientY - (cardHeight / 2);
+
+            // Ajustement si débordement horizontal à droite
+            if (left + cardWidth > window.innerWidth - 10) {
+                left = e.clientX - cardWidth - margin;
+            }
+
+            // Ajustement si débordement vertical en haut ou en bas
+            if (top < 15) {
+                top = 15;
+            } else if (top + cardHeight > window.innerHeight - 15) {
+                top = window.innerHeight - cardHeight - 15;
+            }
+
+            previewCard.style.left = `${left}px`;
+            previewCard.style.top = `${top}px`;
+        }
+
+        function hidePreviewCard() {
+            previewCard.classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>
