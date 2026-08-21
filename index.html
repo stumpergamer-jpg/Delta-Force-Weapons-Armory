@@ -599,19 +599,19 @@
         </div>
 
         <div class="filter-group">
-            <label for="filterType" id="lbl-type">Weapon Type</label>
-            <select id="filterType">
-                <option value="ALL" id="opt-all-types">All Types</option>
-                <option value="Fusil">Assault Rifle</option>
-                <option value="PM">SMG</option>
-                <option value="Fusil à pompe">Shotgun</option>
-                <option value="Mitrailleuse (ML)">LMG</option>
-                <option value="Fusil de précision (FP)">Marksman Rifle</option>
-                <option value="Fusil de sniper (FS)">Sniper Rifle</option>
-                <option value="Pistolet">Pistol</option>
-                <option value="Spécial">Special</option>
-            </select>
-        </div>
+    <label for="filterType" id="lbl-type">Weapon Type</label>
+    <select id="filterType">
+        <option value="ALL" id="opt-all-types">All Types</option>
+        <option value="Fusil"></option>
+        <option value="PM"></option>
+        <option value="Fusil à pompe"></option>
+        <option value="Mitrailleuse (ML)"></option>
+        <option value="Fusil de précision (FP)"></option>
+        <option value="Fusil de sniper (FS)"></option>
+        <option value="Pistolet"></option>
+        <option value="Spécial"></option>
+    </select>
+</div>
 
         <div class="filter-group">
             <label for="filterCaliber" id="lbl-caliber">Caliber</label>
@@ -1302,9 +1302,20 @@ function updateLanguage(lang) {
     document.getElementById('lbl-range').textContent = t.range;
     if (document.getElementById('hoverHelp')) document.getElementById('hoverHelp').textContent = t.hoverHint;
 
-    document.getElementById('opt-all-types').textContent = t.allTypes;
+    // Traduction dynamique des options du filtre par type d'arme
+    const typeSelect = document.getElementById('filterType');
+    if (typeSelect) {
+        Array.from(typeSelect.options).forEach(opt => {
+            if (opt.value === 'ALL') {
+                opt.textContent = t.allTypes;
+            } else if (t.types && t.types[opt.value]) {
+                opt.textContent = t.types[opt.value];
+            }
+        });
+    }
+
     if (document.getElementById('opt-all-calibers')) document.getElementById('opt-all-calibers').textContent = t.allCalibers;
-    document.getElementById('opt-all-ranges').textContent = t.allRanges;
+    if (document.getElementById('opt-all-ranges')) document.getElementById('opt-all-ranges').textContent = t.allRanges;
 
     document.getElementById('opt-range-short').textContent = t.rangeShort;
     document.getElementById('opt-range-mid').textContent = t.rangeMid;
