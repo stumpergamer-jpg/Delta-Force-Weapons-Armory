@@ -244,11 +244,26 @@
             letter-spacing: 0.5px;
         }
 
-        .badge-type {
-            background-color: #1e2838;
-            color: var(--accent-blue);
-            border: 1px solid rgba(0, 210, 255, 0.3);
-        }
+        /* BADGES DYNAMIQUES PAR TYPE D'ARME */
+.badge-type {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.type-fusil { background-color: #11283d; color: #4fc3f7; border: 1px solid rgba(79, 195, 247, 0.35); }
+.type-pm { background-color: #381a32; color: #f06292; border: 1px solid rgba(240, 98, 146, 0.35); }
+.type-pompe { background-color: #3d200a; color: #ffb74d; border: 1px solid rgba(255, 183, 77, 0.35); }
+.type-ml { background-color: #33221b; color: #d7ccc8; border: 1px solid rgba(215, 204, 200, 0.35); }
+.type-fp { background-color: #143326; color: #74c69d; border: 1px solid rgba(116, 198, 157, 0.35); }
+.type-fs { background-color: #232736; color: #a2d2ff; border: 1px solid rgba(162, 210, 255, 0.35); }
+.type-pistolet { background-color: #2b373d; color: #cfd8dc; border: 1px solid rgba(207, 216, 220, 0.35); }
+.type-special { background-color: #38104a; color: #e1bee7; border: 1px solid rgba(225, 190, 231, 0.35); }
+
 
         .badge-range-courte {
             background-color: #3d2020;
@@ -716,6 +731,21 @@
     </div>
 
     <script>
+        
+        function getTypeBadgeClass(type) {
+    switch (type) {
+        case 'Fusil': return 'type-fusil';
+        case 'PM': return 'type-pm';
+        case 'Fusil à pompe': return 'type-pompe';
+        case 'Mitrailleuse (ML)': return 'type-ml';
+        case 'Fusil de précision (FP)': return 'type-fp';
+        case 'Fusil tir de précision (FS)': return 'type-fs';
+        case 'Pistolet': return 'type-pistolet';
+        case 'Spécial': return 'type-special';
+        default: return 'type-fusil';
+    }
+}
+
         // ICÔNE OFFICIELLE DE LA MONNAIE (ALLIAGE TEKNIQ / TEKNIQ ALLOY) DANS DELTA FORCE
         function getCurrencyIconSvg(size = 18) {
             return `
@@ -1337,6 +1367,7 @@ function renderTable() {
         const displayDmg = w.damageDisplay || w.damage;
         const displayPen = w.penetrationDisplay || w.penetration;
         const displayFireRate = w.fireRateDisplay || w.fireRate;
+        const typeBadgeClass = getTypeBadgeClass(w.type);
 
         let rangeBadgeClass = "badge-range-moyenne";
         let translatedRange = t.rangeMid;
@@ -1357,7 +1388,7 @@ function renderTable() {
                 <strong>${w.name}</strong>
                 </span>
             </td>
-            <td><span class="badge badge-type">${translatedType}</span></td>
+            <td><span class="badge badge-type ${typeBadgeClass}">${translatedType}</span></td>
             <td>${w.caliber}</td>
             <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${displayDmg}</td>
             <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${displayPen}</td>
@@ -1393,7 +1424,9 @@ function showPreviewCard(e, weapon) {
     // 1. Mise à jour des textes statiques et labels traduits
     document.getElementById('wpcName').textContent = weapon.name;
     document.getElementById('wpcCaliber').textContent = weapon.caliber;
-    document.getElementById('wpcType').textContent = t.types[weapon.type] || weapon.type;
+const wpcTypeElem = document.getElementById('wpcType');
+wpcTypeElem.className = `badge badge-type ${getTypeBadgeClass(weapon.type)}`;
+wpcTypeElem.textContent = t.types[weapon.type] || weapon.type;
 
     // Mise à jour traduite des labels de barres et footer
     if (document.getElementById('wpcLblDamage')) document.getElementById('wpcLblDamage').textContent = t.lblDamage || 'Damage';
