@@ -1171,19 +1171,23 @@
             { name: "MP5", type: "PM", caliber: "9x19 mm", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
         ];
 
-        // Calcul de la portée et affectation de la valeur numérique de tri (1: Courte, 2: Moyenne, 3: Longue)
+        
         weaponsData.forEach(w => {
-            if (w.muzzleVelocity < 400) {
-                w.rangeClass = "Courte";
-                w.rangeOrder = 1;
-            } else if (w.muzzleVelocity <= 600) {
-                w.rangeClass = "Moyenne";
-                w.rangeOrder = 2;
-            } else {
-                w.rangeClass = "Longue";
-                w.rangeOrder = 3;
-            }
+          // Calcul d'un score combiné : Statistique de Range + Vélocité pondérée
+          const rangeScore = (w.statRange * 1.2) + (w.muzzleVelocity / 15);
+
+          if (rangeScore < 60) {
+            w.rangeClass = "Courte";
+            w.rangeOrder = 1;
+          } else if (rangeScore <= 85) {
+            w.rangeClass = "Moyenne";
+            w.rangeOrder = 2;
+          } else {
+            w.rangeClass = "Longue";
+            w.rangeOrder = 3;
+          }
         });
+
 
         let currentLang = 'en';
         let currentSort = { column: 'penetration', ascending: false };
