@@ -1169,6 +1169,31 @@
             { name: "Vector", type: "PM", caliber: ".45 ACP", damage: 32, penetration: 28, fireRate: 1091, muzzleVelocity: 500, price: 288427, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 38, statHand: 38, statStab: 42, statAcc: 52 },
             { name: "P90", type: "PM", caliber: "5.7x28 mm", damage: 32, penetration: 35, fireRate: 898, muzzleVelocity: 450, price: 43990, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 48, statHand: 56, statStab: 45, statAcc: 60 },
             { name: "MP5", type: "PM", caliber: "9x19 mm", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
+{ name: "FS12", 
+  type: "Fusil à pompe", 
+  caliber: "Calibre 12", 
+  
+  // Valeurs numériques pour le tri par colonne
+  damage: 144,                // Dégâts max (Pompe 18 x 8)
+  penetration: 19,            // Pénétration max (Pompe)
+  fireRate: 300,              // Cadence max (Semi-Auto)
+  
+  // Affichage personnalisé dans le tableau (Semi-Auto / Pompe)
+  damageDisplay: "14x8 / 18x8",
+  penetrationDisplay: "16x8 / 19x8",
+  fireRateDisplay: "300 / 71",
+  
+  muzzleVelocity: 450, 
+  price: 48234, 
+  img: "images/weapons/fs12.webp", 
+  fallback: "https://deltaforcedb.com/assets/images/weapons/fs12.webp", 
+  statDmg: 144, statRange: 12, statCtrl: 30, statHand: 52, statStab: 47, statAcc: 51 
+},
+{ name: "MP5", type: "Fusil à pompe", caliber: "Calibre 12", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
+{ name: "MP5", type: "Fusil à pompe", caliber: "Calibre 12", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
+{ name: "MP5", type: "Fusil à pompe", caliber: "Calibre 12", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
+{ name: "MP5", type: "Fusil à pompe", caliber: "Calibre 12", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
+{ name: "MP5", type: "Fusil à pompe", caliber: "Calibre 12", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
         ];
 
         
@@ -1314,42 +1339,49 @@
             tbody.innerHTML = '';
 
             filtered.forEach(w => {
-                const tr = document.createElement('tr');
+    const tr = document.createElement('tr');
 
-                let rangeBadgeClass = "badge-range-moyenne";
-                let translatedRange = t.rangeMid;
-                if (w.rangeClass === "Courte") {
-                    rangeBadgeClass = "badge-range-courte";
-                    translatedRange = t.rangeShort;
-                } else if (w.rangeClass === "Longue") {
-                    rangeBadgeClass = "badge-range-longue";
-                    translatedRange = t.rangeLong;
-                }
+    // Variables d'affichage personnalisées
+    const displayDmg = w.damageDisplay || w.damage;
+    const displayPen = w.penetrationDisplay || w.penetration;
+    const displayFireRate = w.fireRateDisplay || w.fireRate;
 
-                const translatedType = t.types[w.type] || w.type;
-                const currencySvg = getCurrencyIconSvg(18);
+    let rangeBadgeClass = "badge-range-moyenne";
+    let translatedRange = t.rangeMid;
+    if (w.rangeClass === "Courte") {
+        rangeBadgeClass = "badge-range-courte";
+        translatedRange = t.rangeShort;
+    } else if (w.rangeClass === "Longue") {
+        rangeBadgeClass = "badge-range-longue";
+        translatedRange = t.rangeLong;
+    }
 
-                tr.innerHTML = `
-                    <td class="weapon-name-cell" data-weapon-name="${w.name}">
-                        <span class="weapon-name-btn">
-                        <strong>${w.name}</strong>
-                        </span>
-                    </td>`;
-                tr.innerHTML += `
-                    <td><span class="badge badge-type">${translatedType}</span></td>
-                    <td>${w.caliber}</td>
-                    <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${w.damage}</td>
-                    <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${w.penetration}</td>
-                    <td>${w.fireRate}</td>
-                    <td>${w.muzzleVelocity}</td>
-                    <td><span class="badge ${rangeBadgeClass}">${translatedRange}</span></td>
-                    <td class="price-cell">
-                        <span class="price-wrapper" title="${t.currency}">
-                        <span>${w.price.toLocaleString(currentLang)}</span>
-                        ${currencySvg}
-                        </span>
-                    </td>
-                    `;
+    const translatedType = t.types[w.type] || w.type;
+    const currencySvg = getCurrencyIconSvg(18);
+    
+    tr.innerHTML = `
+        <td class="weapon-name-cell" data-weapon-name="${w.name}">
+            <span class="weapon-name-btn">
+            <strong>${w.name}</strong>
+            </span>
+        </td>`;
+    tr.innerHTML += `
+        <td><span class="badge badge-type">${translatedType}</span></td>
+        <td>${w.caliber}</td>
+        <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${displayDmg}</td>
+        <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${displayPen}</td>
+        <td>${displayFireRate}</td>
+        <td>${w.muzzleVelocity}</td>
+        <td><span class="badge ${rangeBadgeClass}">${translatedRange}</span></td>
+        <td class="price-cell">
+            <span class="price-wrapper" title="${t.currency}">
+            <span>${w.price.toLocaleString(currentLang)}</span>
+            ${currencySvg}
+            </span>
+        </td>
+        `;
+
+
 
                 // Attachement des événements de survol pour l'aperçu de l'arme
                 const nameCell = tr.querySelector('.weapon-name-cell');
@@ -1369,10 +1401,21 @@
         function showPreviewCard(e, weapon) {
             const t = translations[currentLang];
 
+            // 1. Mise à jour des textes statiques et labels traduits
             document.getElementById('wpcName').textContent = weapon.name;
             document.getElementById('wpcCaliber').textContent = weapon.caliber;
             document.getElementById('wpcType').textContent = t.types[weapon.type] || weapon.type;
 
+            // Mise à jour traduite des labels de barres et footer
+            if (document.getElementById('wpcLblDamage')) document.getElementById('wpcLblDamage').textContent = t.lblDamage || 'Damage';
+            if (document.getElementById('wpcLblRange')) document.getElementById('wpcLblRange').textContent = t.lblRange || 'Range';
+            if (document.getElementById('wpcLblControl')) document.getElementById('wpcLblControl').textContent = t.lblControl || 'Control';
+            if (document.getElementById('wpcLblHandling')) document.getElementById('wpcLblHandling').textContent = t.lblHandling || 'Handling';
+            if (document.getElementById('wpcLblStability')) document.getElementById('wpcLblStability').textContent = t.lblStability || 'Stability';
+            if (document.getElementById('wpcLblAccuracy')) document.getElementById('wpcLblAccuracy').textContent = t.lblAccuracy || 'Accuracy';
+            if (document.getElementById('wpcLblPrice')) document.getElementById('wpcLblPrice').textContent = t.lblPrice || 'Base Price';
+
+            // 2. Gestion du badge de portée
             const rangeElem = document.getElementById('wpcRange');
             rangeElem.className = 'badge';
             if (weapon.rangeClass === "Courte") {
@@ -1386,19 +1429,21 @@
                 rangeElem.textContent = t.rangeMid;
             }
 
-            // Image de l'arme avec gestion fallback
+            // 3. Image de l'arme avec fallback sécurisé
             const imgElem = document.getElementById('wpcImg');
-            imgElem.src = weapon.img;
+            imgElem.onerror = null; // Réinitialise l'événement avant d'affecter la source
             imgElem.onerror = function () {
                 if (weapon.fallback && this.src !== weapon.fallback) {
                     this.src = weapon.fallback;
                 }
             };
+            imgElem.src = weapon.img;
 
-            // Barres de statistiques
+            // 4. Barres de statistiques
             function setBar(barId, valId, value) {
-                document.getElementById(barId).style.width = value + '%';
-                document.getElementById(valId).textContent = value;
+                const val = value || 0;
+                document.getElementById(barId).style.width = val + '%';
+                document.getElementById(valId).textContent = val;
             }
             setBar('wpcBarDamage', 'wpcValDamage', weapon.statDmg);
             setBar('wpcBarRange', 'wpcValRange', weapon.statRange);
@@ -1407,12 +1452,14 @@
             setBar('wpcBarStability', 'wpcValStability', weapon.statStab);
             setBar('wpcBarAccuracy', 'wpcValAccuracy', weapon.statAcc);
 
+            // 5. Prix et monnaie
             document.getElementById('wpcPrice').textContent = weapon.price.toLocaleString(currentLang);
             document.getElementById('wpcCurrencyIcon').innerHTML = getCurrencyIconSvg(20);
 
             positionPreviewCard(e);
             previewCard.classList.add('active');
         }
+
 
         function positionPreviewCard(e) {
             const cardWidth = 340;
