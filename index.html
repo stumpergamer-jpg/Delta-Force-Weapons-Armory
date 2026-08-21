@@ -1132,361 +1132,350 @@
             }
         };
 
-        // BASE DE DONNÉES DES ARMES AVEC CHEMINS D'IMAGES DU JEU DELTA FORCE
-        // Stats (damage, range, control, handling, stability, accuracy) sourced from deltaforcedb.com
-        const weaponsData = [
-            { name: "RM277", type: "Fusil", caliber: "6.8x51 mm", damage: 41, penetration: 42, fireRate: 550, muzzleVelocity: 650, price: 68347, img: "images/weapons/rm277.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/RM277.png", statDmg: 41, statRange: 55, statCtrl: 48, statHand: 55, statStab: 59, statAcc: 44 },
-            { name: "AR-57", type: "Fusil", caliber: "5.7x28 mm", damage: 30, penetration: 31, fireRate: 900, muzzleVelocity: 525, price: 217573, img: "images/weapons/ar-57.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/AR-57.png", statDmg: 30, statRange: 35, statCtrl: 41, statHand: 58, statStab: 40, statAcc: 60 },
-            { name: "MCX LT", type: "Fusil", caliber: "300 BLK.", damage: 34, penetration: 26, fireRate: 840, muzzleVelocity: 450, price: 74823, img: "images/weapons/mcx-lt.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/MCX_20LT.png", statDmg: 34, statRange: 30, statCtrl: 44, statHand: 61, statStab: 52, statAcc: 57 },
-            { name: "MK47", type: "Fusil", caliber: "7.62x39 mm", damage: 42, penetration: 46, fireRate: 625, muzzleVelocity: 525, price: 202074, img: "images/weapons/mk47.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/MK47.png", statDmg: 42, statRange: 30, statCtrl: 35, statHand: 55, statStab: 50, statAcc: 53 },
-            { name: "KC-17", type: "Fusil", caliber: "5.45x39 mm", damage: 31, penetration: 48, fireRate: 740, muzzleVelocity: 575, price: 197717, img: "images/weapons/kc17.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/KC17.png", statDmg: 31, statRange: 55, statCtrl: 53, statHand: 53, statStab: 48, statAcc: 45 },
-            { name: "K437", type: "Fusil", caliber: "300 BLK.", damage: 36, penetration: 32, fireRate: 780, muzzleVelocity: 575, price: 179901, img: "images/weapons/k437.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/K437.png", statDmg: 36, statRange: 35, statCtrl: 45, statHand: 48, statStab: 53, statAcc: 49 },
-            { name: "CI-19", type: "Fusil", caliber: "5.8x42 mm", damage: 35, penetration: 38, fireRate: 706, muzzleVelocity: 575, price: 72997, img: "images/weapons/ci-19.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ci-19.webp", statDmg: 35, statRange: 35, statCtrl: 40, statHand: 60, statStab: 50, statAcc: 56 },
-            { name: "AS Val", type: "Fusil", caliber: "9x39 mm", damage: 28, penetration: 44, fireRate: 972, muzzleVelocity: 300, price: 285787, img: "images/weapons/as-val.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/as-val.webp", statDmg: 28, statRange: 21, statCtrl: 43, statHand: 62, statStab: 51, statAcc: 57 },
-            { name: "CAR-15", type: "Fusil", caliber: "5.56x45 mm", damage: 27, penetration: 32, fireRate: 632, muzzleVelocity: 575, price: 8285, img: "images/weapons/car-15.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/car-15.webp", statDmg: 27, statRange: 40, statCtrl: 50, statHand: 58, statStab: 55, statAcc: 53 },
-            { name: "PTR-32", type: "Fusil", caliber: "7.62x39 mm", damage: 36, penetration: 37, fireRate: 632, muzzleVelocity: 630, price: 28233, img: "images/weapons/ptr-32.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ptr-32.webp", statDmg: 36, statRange: 40, statCtrl: 32, statHand: 56, statStab: 57, statAcc: 45 },
-            { name: "G3", type: "Fusil", caliber: "7.62x51 mm", damage: 39, penetration: 42, fireRate: 533, muzzleVelocity: 630, price: 35425, img: "images/weapons/g3.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/g3.webp", statDmg: 39, statRange: 55, statCtrl: 32, statHand: 51, statStab: 62, statAcc: 45 },
-            { name: "SCAR-H", type: "Fusil", caliber: "7.62x51 mm", damage: 40, penetration: 41, fireRate: 585, muzzleVelocity: 630, price: 71778, img: "images/weapons/scar-h.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/scar-h.webp", statDmg: 40, statRange: 40, statCtrl: 40, statHand: 58, statStab: 55, statAcc: 45 },
-            { name: "AK-12", type: "Fusil", caliber: "5.45x39 mm", damage: 30, penetration: 42, fireRate: 735, muzzleVelocity: 575, price: 46362, img: "images/weapons/ak-12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ak-12.webp", statDmg: 30, statRange: 40, statCtrl: 48, statHand: 57, statStab: 56, statAcc: 54 },
-            { name: "SG552", type: "Fusil", caliber: "5.56x45 mm", damage: 25, penetration: 34, fireRate: 906, muzzleVelocity: 575, price: 27721, img: "images/weapons/sg552.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/sg552.webp", statDmg: 25, statRange: 35, statCtrl: 46, statHand: 61, statStab: 52, statAcc: 53 },
-            { name: "M7", type: "Fusil", caliber: "6.8x51 mm", damage: 40, penetration: 20, fireRate: 649, muzzleVelocity: 630, price: 211556, img: "images/weapons/m7.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m7.webp", statDmg: 37, statRange: 50, statCtrl: 34, statHand: 51, statStab: 58, statAcc: 43 },
-            { name: "AUG", type: "Fusil", caliber: "5.56x45 mm", damage: 32, penetration: 35, fireRate: 679, muzzleVelocity: 575, price: 95477, img: "images/weapons/aug.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/aug.webp", statDmg: 32, statRange: 55, statCtrl: 60, statHand: 54, statStab: 59, statAcc: 53 },
-            { name: "M16A4", type: "Fusil", caliber: "5.56x45 mm", damage: 33, penetration: 39, fireRate: 508, muzzleVelocity: 575, price: 8200, img: "images/weapons/m16a4.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m16a4.webp", statDmg: 33, statRange: 55, statCtrl: 40, statHand: 56, statStab: 57, statAcc: 54 },
-            { name: "K416", type: "Fusil", caliber: "5.56x45 mm", damage: 31, penetration: 35, fireRate: 880, muzzleVelocity: 575, price: 152527, img: "images/weapons/k416.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/k416.webp", statDmg: 31, statRange: 27, statCtrl: 44, statHand: 61, statStab: 52, statAcc: 57 },
-            { name: "ASh-12", type: "Fusil", caliber: "12.7x55 mm", damage: 56, penetration: 55, fireRate: 500, muzzleVelocity: 340, price: 199883, img: "images/weapons/ash-12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ash-12.webp", statDmg: 56, statRange: 55, statCtrl: 24, statHand: 57, statStab: 64, statAcc: 43 },
-            { name: "AKS-74", type: "Fusil", caliber: "5.45x39 mm", damage: 34, penetration: 36, fireRate: 533, muzzleVelocity: 500, price: 8454, img: "images/weapons/aks-74.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/aks-74.webp", statDmg: 34, statRange: 40, statCtrl: 35, statHand: 60, statStab: 53, statAcc: 52 },
-            { name: "QBZ95-1", type: "Fusil", caliber: "5.8x42 mm", damage: 28, penetration: 42, fireRate: 679, muzzleVelocity: 575, price: 29597, img: "images/weapons/qbz95-1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/qbz95-1.webp", statDmg: 28, statRange: 55, statCtrl: 52, statHand: 55, statStab: 58, statAcc: 54 },
-            { name: "AKM", type: "Fusil", caliber: "7.62x39 mm", damage: 40, penetration: 42, fireRate: 600, muzzleVelocity: 525, price: 63495, img: "images/weapons/akm.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/akm.webp", statDmg: 40, statRange: 40, statCtrl: 39, statHand: 54, statStab: 55, statAcc: 53 },
-            { name: "M4A1", type: "Fusil", caliber: "5.56x45 mm", damage: 31, penetration: 33, fireRate: 800, muzzleVelocity: 575, price: 79681, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 31, statRange: 40, statCtrl: 41, statHand: 58, statStab: 55, statAcc: 55 },
-            { name: "MK4", type: "PM", caliber: "4.6x30 mm", damage: 34, penetration: 30, fireRate: 793, muzzleVelocity: 475, price: 48861, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 34, statRange: 20, statCtrl: 46, statHand: 60, statStab: 51, statAcc: 50 },
-            { name: "QCQ171", type: "PM", caliber: "9x19 mm", damage: 36, penetration: 33, fireRate: 763, muzzleVelocity: 450, price: 96578, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 36, statRange: 20, statCtrl: 47, statHand: 60, statStab: 56, statAcc: 58 },
-            { name: "MP7", type: "PM", caliber: "4.6x30 mm", damage: 32, penetration: 28, fireRate: 950, muzzleVelocity: 450, price: 179247, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 55, statHand: 67, statStab: 44, statAcc: 68 },
-            { name: "Vityaz", type: "PM", caliber: "9x19 mm", damage: 36, penetration: 35, fireRate: 700, muzzleVelocity: 500, price: 27410, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 36, statRange: 20, statCtrl: 40, statHand: 63, statStab: 48, statAcc: 48 },
-            { name: "SR-3M", type: "PM", caliber: "9x39 mm", damage: 36, penetration: 48, fireRate: 747, muzzleVelocity: 330, price: 56322, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 36, statRange: 15, statCtrl: 45, statHand: 63, statStab: 43, statAcc: 68 },
-            { name: "SMG-45", type: "PM", caliber: ".45 ACP", damage: 35, penetration: 40, fireRate: 605, muzzleVelocity: 500, price: 79681, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 35, statRange: 27, statCtrl: 52, statHand: 70, statStab: 41, statAcc: 65 },
-            { name: "Bison", type: "PM", caliber: "9x19 mm", damage: 32, penetration: 35, fireRate: 659, muzzleVelocity: 500, price: 7767, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 43, statHand: 62, statStab: 49, statAcc: 63 },
-            { name: "UZI", type: "PM", caliber: "9x19 mm", damage: 28, penetration: 35, fireRate: 780, muzzleVelocity: 450, price: 9071, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 28, statRange: 20, statCtrl: 50, statHand: 68, statStab: 43, statAcc: 66 },
-            { name: "Vector", type: "PM", caliber: ".45 ACP", damage: 32, penetration: 28, fireRate: 1091, muzzleVelocity: 500, price: 288427, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 38, statHand: 38, statStab: 42, statAcc: 52 },
-            { name: "P90", type: "PM", caliber: "5.7x28 mm", damage: 32, penetration: 35, fireRate: 898, muzzleVelocity: 450, price: 43990, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 48, statHand: 56, statStab: 45, statAcc: 60 },
-            { name: "MP5", type: "PM", caliber: "9x19 mm", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
-{ name: "FS12", 
-  type: "Fusil à pompe", 
-  caliber: "Calibre 12", 
-  
-  // Valeurs numériques pour le tri par colonne
-  damage: 144,                // Dégâts max (Pompe 18 x 8)
-  penetration: 19,            // Pénétration max (Pompe)
-  fireRate: 300,              // Cadence max (Semi-Auto)
-  
-  // Affichage personnalisé dans le tableau (Semi-Auto / Pompe)
-  damageDisplay: "14x8 / 18x8",
-  penetrationDisplay: "16x8 / 19x8",
-  fireRateDisplay: "300 / 71",
-  
-  muzzleVelocity: 450, 
-  price: 48234, 
-  img: "images/weapons/fs12.webp", 
-  fallback: "https://deltaforcedb.com/assets/images/weapons/fs12.webp", 
-  statDmg: 144, statRange: 12, statCtrl: 30, statHand: 52, statStab: 47, statAcc: 51 
-},
-{ name: "Canon double 725", type: "Fusil à pompe", caliber: "Calibre 12", damage: 136, damageDisplay: "17x8", penetration: 144, penetrationDisplay: "18x8", fireRate: 375, muzzleVelocity: 400, price: 24012, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 136, statRange: 15, statCtrl: 25, statHand: 50, statStab: 48, statAcc: 47 },
-{ name: "M870", type: "Fusil à pompe", caliber: "Calibre 12", damage: 136, damageDisplay: "17x8", penetration: 128, penetrationDisplay: "16x8", fireRate: 74, muzzleVelocity: 400, price: 3507, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 136, statRange: 12, statCtrl: 26, statHand: 57, statStab: 41, statAcc: 49 },
-{ name: "S12K", type: "Fusil à pompe", caliber: "Calibre 12", damage: 104, damageDisplay: "13x8", penetration: 128, penetrationDisplay: "16x8", fireRate: 300, muzzleVelocity: 300, price: 29455, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 104, statRange: 10, statCtrl: 36, statHand: 55, statStab: 49, statAcc: 48 },
-{ name: "M1014", type: "Fusil à pompe", caliber: "Calibre 12", damage: 112, damageDisplay: "14x8", penetration: 128, penetrationDisplay: "16x8", fireRate: 261, muzzleVelocity: 450, price: 25108, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 112, statRange: 12, statCtrl: 28, statHand: 53, statStab: 45, statAcc: 52 },       
-        ];
+// BASE DE DONNÉES DES ARMES AVEC CHEMINS D'IMAGES DU JEU DELTA FORCE
+// Stats (damage, range, control, handling, stability, accuracy) sourced from deltaforcedb.com
+const weaponsData = [
+    { name: "RM277", type: "Fusil", caliber: "6.8x51 mm", damage: 41, penetration: 42, fireRate: 550, muzzleVelocity: 650, price: 68347, img: "images/weapons/rm277.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/RM277.png", statDmg: 41, statRange: 55, statCtrl: 48, statHand: 55, statStab: 59, statAcc: 44 },
+    { name: "AR-57", type: "Fusil", caliber: "5.7x28 mm", damage: 30, penetration: 31, fireRate: 900, muzzleVelocity: 525, price: 217573, img: "images/weapons/ar-57.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/AR-57.png", statDmg: 30, statRange: 35, statCtrl: 41, statHand: 58, statStab: 40, statAcc: 60 },
+    { name: "MCX LT", type: "Fusil", caliber: "300 BLK.", damage: 34, penetration: 26, fireRate: 840, muzzleVelocity: 450, price: 74823, img: "images/weapons/mcx-lt.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/MCX_20LT.png", statDmg: 34, statRange: 30, statCtrl: 44, statHand: 61, statStab: 52, statAcc: 57 },
+    { name: "MK47", type: "Fusil", caliber: "7.62x39 mm", damage: 42, penetration: 46, fireRate: 625, muzzleVelocity: 525, price: 202074, img: "images/weapons/mk47.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/MK47.png", statDmg: 42, statRange: 30, statCtrl: 35, statHand: 55, statStab: 50, statAcc: 53 },
+    { name: "KC-17", type: "Fusil", caliber: "5.45x39 mm", damage: 31, penetration: 48, fireRate: 740, muzzleVelocity: 575, price: 197717, img: "images/weapons/kc17.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/KC17.png", statDmg: 31, statRange: 55, statCtrl: 53, statHand: 53, statStab: 48, statAcc: 45 },
+    { name: "K437", type: "Fusil", caliber: "300 BLK.", damage: 36, penetration: 32, fireRate: 780, muzzleVelocity: 575, price: 179901, img: "images/weapons/k437.webp", fallback: "https://ik.imagekit.io/DeltaForceBuilds/delta-force-builds/K437.png", statDmg: 36, statRange: 35, statCtrl: 45, statHand: 48, statStab: 53, statAcc: 49 },
+    { name: "CI-19", type: "Fusil", caliber: "5.8x42 mm", damage: 35, penetration: 38, fireRate: 706, muzzleVelocity: 575, price: 72997, img: "images/weapons/ci-19.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ci-19.webp", statDmg: 35, statRange: 35, statCtrl: 40, statHand: 60, statStab: 50, statAcc: 56 },
+    { name: "AS Val", type: "Fusil", caliber: "9x39 mm", damage: 28, penetration: 44, fireRate: 972, muzzleVelocity: 300, price: 285787, img: "images/weapons/as-val.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/as-val.webp", statDmg: 28, statRange: 21, statCtrl: 43, statHand: 62, statStab: 51, statAcc: 57 },
+    { name: "CAR-15", type: "Fusil", caliber: "5.56x45 mm", damage: 27, penetration: 32, fireRate: 632, muzzleVelocity: 575, price: 8285, img: "images/weapons/car-15.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/car-15.webp", statDmg: 27, statRange: 40, statCtrl: 50, statHand: 58, statStab: 55, statAcc: 53 },
+    { name: "PTR-32", type: "Fusil", caliber: "7.62x39 mm", damage: 36, penetration: 37, fireRate: 632, muzzleVelocity: 630, price: 28233, img: "images/weapons/ptr-32.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ptr-32.webp", statDmg: 36, statRange: 40, statCtrl: 32, statHand: 56, statStab: 57, statAcc: 45 },
+    { name: "G3", type: "Fusil", caliber: "7.62x51 mm", damage: 39, penetration: 42, fireRate: 533, muzzleVelocity: 630, price: 35425, img: "images/weapons/g3.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/g3.webp", statDmg: 39, statRange: 55, statCtrl: 32, statHand: 51, statStab: 62, statAcc: 45 },
+    { name: "SCAR-H", type: "Fusil", caliber: "7.62x51 mm", damage: 40, penetration: 41, fireRate: 585, muzzleVelocity: 630, price: 71778, img: "images/weapons/scar-h.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/scar-h.webp", statDmg: 40, statRange: 40, statCtrl: 40, statHand: 58, statStab: 55, statAcc: 45 },
+    { name: "AK-12", type: "Fusil", caliber: "5.45x39 mm", damage: 30, penetration: 42, fireRate: 735, muzzleVelocity: 575, price: 46362, img: "images/weapons/ak-12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ak-12.webp", statDmg: 30, statRange: 40, statCtrl: 48, statHand: 57, statStab: 56, statAcc: 54 },
+    { name: "SG552", type: "Fusil", caliber: "5.56x45 mm", damage: 25, penetration: 34, fireRate: 906, muzzleVelocity: 575, price: 27721, img: "images/weapons/sg552.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/sg552.webp", statDmg: 25, statRange: 35, statCtrl: 46, statHand: 61, statStab: 52, statAcc: 53 },
+    { name: "M7", type: "Fusil", caliber: "6.8x51 mm", damage: 40, penetration: 20, fireRate: 649, muzzleVelocity: 630, price: 211556, img: "images/weapons/m7.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m7.webp", statDmg: 37, statRange: 50, statCtrl: 34, statHand: 51, statStab: 58, statAcc: 43 },
+    { name: "AUG", type: "Fusil", caliber: "5.56x45 mm", damage: 32, penetration: 35, fireRate: 679, muzzleVelocity: 575, price: 95477, img: "images/weapons/aug.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/aug.webp", statDmg: 32, statRange: 55, statCtrl: 60, statHand: 54, statStab: 59, statAcc: 53 },
+    { name: "M16A4", type: "Fusil", caliber: "5.56x45 mm", damage: 33, penetration: 39, fireRate: 508, muzzleVelocity: 575, price: 8200, img: "images/weapons/m16a4.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m16a4.webp", statDmg: 33, statRange: 55, statCtrl: 40, statHand: 56, statStab: 57, statAcc: 54 },
+    { name: "K416", type: "Fusil", caliber: "5.56x45 mm", damage: 31, penetration: 35, fireRate: 880, muzzleVelocity: 575, price: 152527, img: "images/weapons/k416.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/k416.webp", statDmg: 31, statRange: 27, statCtrl: 44, statHand: 61, statStab: 52, statAcc: 57 },
+    { name: "ASh-12", type: "Fusil", caliber: "12.7x55 mm", damage: 56, penetration: 55, fireRate: 500, muzzleVelocity: 340, price: 199883, img: "images/weapons/ash-12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/ash-12.webp", statDmg: 56, statRange: 55, statCtrl: 24, statHand: 57, statStab: 64, statAcc: 43 },
+    { name: "AKS-74", type: "Fusil", caliber: "5.45x39 mm", damage: 34, penetration: 36, fireRate: 533, muzzleVelocity: 500, price: 8454, img: "images/weapons/aks-74.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/aks-74.webp", statDmg: 34, statRange: 40, statCtrl: 35, statHand: 60, statStab: 53, statAcc: 52 },
+    { name: "QBZ95-1", type: "Fusil", caliber: "5.8x42 mm", damage: 28, penetration: 42, fireRate: 679, muzzleVelocity: 575, price: 29597, img: "images/weapons/qbz95-1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/qbz95-1.webp", statDmg: 28, statRange: 55, statCtrl: 52, statHand: 55, statStab: 58, statAcc: 54 },
+    { name: "AKM", type: "Fusil", caliber: "7.62x39 mm", damage: 40, penetration: 42, fireRate: 600, muzzleVelocity: 525, price: 63495, img: "images/weapons/akm.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/akm.webp", statDmg: 40, statRange: 40, statCtrl: 39, statHand: 54, statStab: 55, statAcc: 53 },
+    { name: "M4A1", type: "Fusil", caliber: "5.56x45 mm", damage: 31, penetration: 33, fireRate: 800, muzzleVelocity: 575, price: 79681, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 31, statRange: 40, statCtrl: 41, statHand: 58, statStab: 55, statAcc: 55 },
+    { name: "MK4", type: "PM", caliber: "4.6x30 mm", damage: 34, penetration: 30, fireRate: 793, muzzleVelocity: 475, price: 48861, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 34, statRange: 20, statCtrl: 46, statHand: 60, statStab: 51, statAcc: 50 },
+    { name: "QCQ171", type: "PM", caliber: "9x19 mm", damage: 36, penetration: 33, fireRate: 763, muzzleVelocity: 450, price: 96578, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 36, statRange: 20, statCtrl: 47, statHand: 60, statStab: 56, statAcc: 58 },
+    { name: "MP7", type: "PM", caliber: "4.6x30 mm", damage: 32, penetration: 28, fireRate: 950, muzzleVelocity: 450, price: 179247, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 55, statHand: 67, statStab: 44, statAcc: 68 },
+    { name: "Vityaz", type: "PM", caliber: "9x19 mm", damage: 36, penetration: 35, fireRate: 700, muzzleVelocity: 500, price: 27410, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 36, statRange: 20, statCtrl: 40, statHand: 63, statStab: 48, statAcc: 48 },
+    { name: "SR-3M", type: "PM", caliber: "9x39 mm", damage: 36, penetration: 48, fireRate: 747, muzzleVelocity: 330, price: 56322, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 36, statRange: 15, statCtrl: 45, statHand: 63, statStab: 43, statAcc: 68 },
+    { name: "SMG-45", type: "PM", caliber: ".45 ACP", damage: 35, penetration: 40, fireRate: 605, muzzleVelocity: 500, price: 79681, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 35, statRange: 27, statCtrl: 52, statHand: 70, statStab: 41, statAcc: 65 },
+    { name: "Bison", type: "PM", caliber: "9x19 mm", damage: 32, penetration: 35, fireRate: 659, muzzleVelocity: 500, price: 7767, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 43, statHand: 62, statStab: 49, statAcc: 63 },
+    { name: "UZI", type: "PM", caliber: "9x19 mm", damage: 28, penetration: 35, fireRate: 780, muzzleVelocity: 450, price: 9071, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 28, statRange: 20, statCtrl: 50, statHand: 68, statStab: 43, statAcc: 66 },
+    { name: "Vector", type: "PM", caliber: ".45 ACP", damage: 32, penetration: 28, fireRate: 1091, muzzleVelocity: 500, price: 288427, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 38, statHand: 38, statStab: 42, statAcc: 52 },
+    { name: "P90", type: "PM", caliber: "5.7x28 mm", damage: 32, penetration: 35, fireRate: 898, muzzleVelocity: 450, price: 43990, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 32, statRange: 20, statCtrl: 48, statHand: 56, statStab: 45, statAcc: 60 },
+    { name: "MP5", type: "PM", caliber: "9x19 mm", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
+    { name: "FS12", 
+      type: "Fusil à pompe", 
+      caliber: "Calibre 12", 
+      damage: 144, 
+      penetration: 19, 
+      fireRate: 300, 
+      damageDisplay: "14x8 / 18x8",
+      penetrationDisplay: "16x8 / 19x8",
+      fireRateDisplay: "300 / 71",
+      muzzleVelocity: 450, 
+      price: 48234, 
+      img: "images/weapons/fs12.webp", 
+      fallback: "https://deltaforcedb.com/assets/images/weapons/fs12.webp", 
+      statDmg: 144, statRange: 12, statCtrl: 30, statHand: 52, statStab: 47, statAcc: 51 },
+    { name: "Canon double 725", type: "Fusil à pompe", caliber: "Calibre 12", damage: 136, damageDisplay: "17x8", penetration: 18, penetrationDisplay: "18x8", fireRate: 375, muzzleVelocity: 400, price: 24012, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 136, statRange: 15, statCtrl: 25, statHand: 50, statStab: 48, statAcc: 47 },
+    { name: "M870", type: "Fusil à pompe", caliber: "Calibre 12", damage: 136, damageDisplay: "17x8", penetration: 16, penetrationDisplay: "16x8", fireRate: 74, muzzleVelocity: 400, price: 3507, img: "images/weapons/m870.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m870.webp", statDmg: 136, statRange: 12, statCtrl: 26, statHand: 57, statStab: 41, statAcc: 49 },
+    { name: "S12K", type: "Fusil à pompe", caliber: "Calibre 12", damage: 104, damageDisplay: "13x8", penetration: 16, penetrationDisplay: "16x8", fireRate: 300, muzzleVelocity: 300, price: 29455, img: "images/weapons/s12k.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/s12k.webp", statDmg: 104, statRange: 10, statCtrl: 36, statHand: 55, statStab: 49, statAcc: 48 },
+    { name: "M1014", type: "Fusil à pompe", caliber: "Calibre 12", damage: 112, damageDisplay: "14x8", penetration: 16, penetrationDisplay: "16x8", fireRate: 261, muzzleVelocity: 450, price: 25108, img: "images/weapons/m1014.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m1014.webp", statDmg: 112, statRange: 12, statCtrl: 28, statHand: 53, statStab: 45, statAcc: 52 }
+];
 
-        
-        weaponsData.forEach(w => {
-          // Calcul d'un score combiné : Statistique de Range + Vélocité pondérée
-          const rangeScore = (w.statRange * 1.2) + (w.muzzleVelocity / 15);
+weaponsData.forEach(w => {
+  // Calcul d'un score combiné : Statistique de Range + Vélocité pondérée
+  const rangeScore = (w.statRange * 1.2) + (w.muzzleVelocity / 15);
 
-          if (rangeScore < 60) {
-            w.rangeClass = "Courte";
-            w.rangeOrder = 1;
-          } else if (rangeScore <= 85) {
-            w.rangeClass = "Moyenne";
-            w.rangeOrder = 2;
-          } else {
-            w.rangeClass = "Longue";
-            w.rangeOrder = 3;
-          }
-        });
+  if (rangeScore < 60) {
+    w.rangeClass = "Courte";
+    w.rangeOrder = 1;
+  } else if (rangeScore <= 85) {
+    w.rangeClass = "Moyenne";
+    w.rangeOrder = 2;
+  } else {
+    w.rangeClass = "Longue";
+    w.rangeOrder = 3;
+  }
+});
 
+let currentLang = 'en';
+let currentSort = { column: 'penetration', ascending: false };
+const previewCard = document.getElementById('weaponPreviewCard');
 
-        let currentLang = 'en';
-        let currentSort = { column: 'penetration', ascending: false };
-        const previewCard = document.getElementById('weaponPreviewCard');
+document.addEventListener("DOMContentLoaded", () => {
+    populateCaliberFilter();
+    updateLanguage(currentLang);
 
-        document.addEventListener("DOMContentLoaded", () => {
-            populateCaliberFilter();
-            updateLanguage(currentLang);
+    // Événements
+    document.getElementById('langSelect').addEventListener('change', (e) => updateLanguage(e.target.value));
+    document.getElementById('search').addEventListener('input', renderTable);
+    document.getElementById('filterType').addEventListener('change', renderTable);
+    document.getElementById('filterCaliber').addEventListener('change', renderTable);
+    document.getElementById('filterRange').addEventListener('change', renderTable);
 
-            // Événements
-            document.getElementById('langSelect').addEventListener('change', (e) => updateLanguage(e.target.value));
-            document.getElementById('search').addEventListener('input', renderTable);
-            document.getElementById('filterType').addEventListener('change', renderTable);
-            document.getElementById('filterCaliber').addEventListener('change', renderTable);
-            document.getElementById('filterRange').addEventListener('change', renderTable);
+    // Masquer la carte d'aperçu en cas de défilement ou sortie de la page
+    window.addEventListener('scroll', hidePreviewCard);
+    document.addEventListener('mouseleave', hidePreviewCard);
+});
 
-            // Masquer la carte d'aperçu en cas de défilement ou sortie de la page
-            window.addEventListener('scroll', hidePreviewCard);
-            document.addEventListener('mouseleave', hidePreviewCard);
-        });
+function populateCaliberFilter() {
+    const caliberSelect = document.getElementById('filterCaliber');
+    const calibers = [...new Set(weaponsData.map(w => w.caliber))].sort();
+    caliberSelect.innerHTML = '<option value="ALL" id="opt-all-calibers"></option>'; // Réinitialise proprement
+    calibers.forEach(cal => {
+        const option = document.createElement('option');
+        option.value = cal;
+        option.textContent = cal;
+        caliberSelect.appendChild(option);
+    });
+}
 
-        function populateCaliberFilter() {
-            const caliberSelect = document.getElementById('filterCaliber');
-            const calibers = [...new Set(weaponsData.map(w => w.caliber))].sort();
-            calibers.forEach(cal => {
-                const option = document.createElement('option');
-                option.value = cal;
-                option.textContent = cal;
-                caliberSelect.appendChild(option);
-            });
-        }
+function updateLanguage(lang) {
+    currentLang = lang;
+    const t = translations[lang];
 
-        function updateLanguage(lang) {
-            currentLang = lang;
-            const t = translations[lang];
+    // RTL Support
+    if (lang === 'ar') document.body.classList.add('rtl');
+    else document.body.classList.remove('rtl');
 
-            // RTL Support
-            if (lang === 'ar') document.body.classList.add('rtl');
-            else document.body.classList.remove('rtl');
+    // Textes statiques
+    document.getElementById('txt-title').textContent = t.title;
+    document.getElementById('txt-lang-label').textContent = t.langLabel;
+    document.getElementById('lbl-search').textContent = t.search;
+    document.getElementById('search').placeholder = t.searchPh;
+    document.getElementById('lbl-type').textContent = t.type;
+    document.getElementById('lbl-caliber').textContent = t.caliber;
+    document.getElementById('lbl-range').textContent = t.range;
+    if (document.getElementById('hoverHelp')) document.getElementById('hoverHelp').textContent = t.hoverHint;
 
-            // Textes statiques
-            document.getElementById('txt-title').textContent = t.title;
-            document.getElementById('txt-lang-label').textContent = t.langLabel;
-            document.getElementById('lbl-search').textContent = t.search;
-            document.getElementById('search').placeholder = t.searchPh;
-            document.getElementById('lbl-type').textContent = t.type;
-            document.getElementById('lbl-caliber').textContent = t.caliber;
-            document.getElementById('lbl-range').textContent = t.range;
-            document.getElementById('hoverHelp').textContent = t.hoverHint;
+    document.getElementById('opt-all-types').textContent = t.allTypes;
+    if (document.getElementById('opt-all-calibers')) document.getElementById('opt-all-calibers').textContent = t.allCalibers;
+    document.getElementById('opt-all-ranges').textContent = t.allRanges;
 
-            document.getElementById('opt-all-types').textContent = t.allTypes;
-            document.getElementById('opt-all-calibers').textContent = t.allCalibers;
-            document.getElementById('opt-all-ranges').textContent = t.allRanges;
+    document.getElementById('opt-range-short').textContent = t.rangeShort;
+    document.getElementById('opt-range-mid').textContent = t.rangeMid;
+    document.getElementById('opt-range-long').textContent = t.rangeLong;
 
-            document.getElementById('opt-range-short').textContent = t.rangeShort;
-            document.getElementById('opt-range-mid').textContent = t.rangeMid;
-            document.getElementById('opt-range-long').textContent = t.rangeLong;
+    document.getElementById('th-name').textContent = t.thName;
+    document.getElementById('th-type').textContent = t.thType;
+    document.getElementById('th-caliber').textContent = t.thCaliber;
+    document.getElementById('th-damage').textContent = t.thDamage;
+    document.getElementById('th-penetration').textContent = t.thPenetration;
+    document.getElementById('th-fireRate').textContent = t.thFireRate;
+    document.getElementById('th-muzzleVelocity').textContent = t.thMuzzleVelocity;
+    document.getElementById('th-rangeClass').textContent = t.thRange;
 
-            document.getElementById('th-name').textContent = t.thName;
-            document.getElementById('th-type').textContent = t.thType;
-            document.getElementById('th-caliber').textContent = t.thCaliber;
-            document.getElementById('th-damage').textContent = t.thDamage;
-            document.getElementById('th-penetration').textContent = t.thPenetration;
-            document.getElementById('th-fireRate').textContent = t.thFireRate;
-            document.getElementById('th-muzzleVelocity').textContent = t.thMuzzleVelocity;
-            document.getElementById('th-rangeClass').textContent = t.thRange;
+    // Header Base Price avec l'icône de monnaie
+    document.getElementById('th-price').innerHTML = `${t.thPrice} ${getCurrencyIconSvg(15)}`;
 
-            // Header Base Price avec l'icône de monnaie
-            document.getElementById('th-price').innerHTML = `${t.thPrice} ${getCurrencyIconSvg(15)}`;
+    // Labels carte de prévisualisation — barres de stats
+    if (document.getElementById('wpcLblDamage')) document.getElementById('wpcLblDamage').textContent = t.lblDamage;
+    if (document.getElementById('wpcLblRange')) document.getElementById('wpcLblRange').textContent = t.lblRange;
+    if (document.getElementById('wpcLblControl')) document.getElementById('wpcLblControl').textContent = t.lblControl;
+    if (document.getElementById('wpcLblHandling')) document.getElementById('wpcLblHandling').textContent = t.lblHandling;
+    if (document.getElementById('wpcLblStability')) document.getElementById('wpcLblStability').textContent = t.lblStability;
+    if (document.getElementById('wpcLblAccuracy')) document.getElementById('wpcLblAccuracy').textContent = t.lblAccuracy;
+    if (document.getElementById('wpcLblPrice')) document.getElementById('wpcLblPrice').textContent = t.lblPrice;
 
-            // Labels carte de prévisualisation — barres de stats
-            document.getElementById('wpcLblDamage').textContent = t.lblDamage;
-            document.getElementById('wpcLblRange').textContent = t.lblRange;
-            document.getElementById('wpcLblControl').textContent = t.lblControl;
-            document.getElementById('wpcLblHandling').textContent = t.lblHandling;
-            document.getElementById('wpcLblStability').textContent = t.lblStability;
-            document.getElementById('wpcLblAccuracy').textContent = t.lblAccuracy;
-            document.getElementById('wpcLblPrice').textContent = t.lblPrice;
+    renderTable();
+}
 
-            renderTable();
-        }
-
-        function sortTable(column) {
-            if (currentSort.column === column) {
-                currentSort.ascending = !currentSort.ascending;
-            } else {
-                currentSort.column = column;
-                currentSort.ascending = (column === 'rangeOrder') ? true : false;
-            }
-            renderTable();
-        }
-
-        function renderTable() {
-            const t = translations[currentLang];
-            const searchValue = document.getElementById('search').value.toLowerCase();
-            const typeValue = document.getElementById('filterType').value;
-            const caliberValue = document.getElementById('filterCaliber').value;
-            const rangeValue = document.getElementById('filterRange').value;
-
-            // Filtrage
-            let filtered = weaponsData.filter(w => {
-                const matchesSearch = w.name.toLowerCase().includes(searchValue);
-                const matchesType = typeValue === 'ALL' || w.type === typeValue;
-                const matchesCaliber = caliberValue === 'ALL' || w.caliber === caliberValue;
-                const matchesRange = rangeValue === 'ALL' || w.rangeClass === rangeValue;
-
-                return matchesSearch && matchesType && matchesCaliber && matchesRange;
-            });
-
-            // Tri
-            filtered.sort((a, b) => {
-                let valA = a[currentSort.column];
-                let valB = b[currentSort.column];
-
-                if (typeof valA === 'string') {
-                    return currentSort.ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                } else {
-                    return currentSort.ascending ? valA - valB : valB - valA;
-                }
-            });
-
-            // Rendu
-            const tbody = document.getElementById('weaponTableBody');
-            tbody.innerHTML = '';
-
-            filtered.forEach(w => {
-    const tr = document.createElement('tr');
-
-    // Variables d'affichage personnalisées
-    const displayDmg = w.damageDisplay || w.damage;
-    const displayPen = w.penetrationDisplay || w.penetration;
-    const displayFireRate = w.fireRateDisplay || w.fireRate;
-
-    let rangeBadgeClass = "badge-range-moyenne";
-    let translatedRange = t.rangeMid;
-    if (w.rangeClass === "Courte") {
-        rangeBadgeClass = "badge-range-courte";
-        translatedRange = t.rangeShort;
-    } else if (w.rangeClass === "Longue") {
-        rangeBadgeClass = "badge-range-longue";
-        translatedRange = t.rangeLong;
+function sortTable(column) {
+    if (currentSort.column === column) {
+        currentSort.ascending = !currentSort.ascending;
+    } else {
+        currentSort.column = column;
+        currentSort.ascending = (column === 'rangeOrder') ? true : false;
     }
+    renderTable();
+}
 
-    const translatedType = t.types[w.type] || w.type;
-    const currencySvg = getCurrencyIconSvg(18);
-    
-    tr.innerHTML = `
-        <td class="weapon-name-cell" data-weapon-name="${w.name}">
-            <span class="weapon-name-btn">
-            <strong>${w.name}</strong>
-            </span>
-        </td>`;
-    tr.innerHTML += `
-        <td><span class="badge badge-type">${translatedType}</span></td>
-        <td>${w.caliber}</td>
-        <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${displayDmg}</td>
-        <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${displayPen}</td>
-        <td>${displayFireRate}</td>
-        <td>${w.muzzleVelocity}</td>
-        <td><span class="badge ${rangeBadgeClass}">${translatedRange}</span></td>
-        <td class="price-cell">
-            <span class="price-wrapper" title="${t.currency}">
-            <span>${w.price.toLocaleString(currentLang)}</span>
-            ${currencySvg}
-            </span>
-        </td>
+function renderTable() {
+    const t = translations[currentLang];
+    const searchValue = document.getElementById('search').value.toLowerCase();
+    const typeValue = document.getElementById('filterType').value;
+    const caliberValue = document.getElementById('filterCaliber').value;
+    const rangeValue = document.getElementById('filterRange').value;
+
+    // Filtrage
+    let filtered = weaponsData.filter(w => {
+        const matchesSearch = w.name.toLowerCase().includes(searchValue);
+        const matchesType = typeValue === 'ALL' || w.type === typeValue;
+        const matchesCaliber = caliberValue === 'ALL' || w.caliber === caliberValue;
+        const matchesRange = rangeValue === 'ALL' || w.rangeClass === rangeValue;
+
+        return matchesSearch && matchesType && matchesCaliber && matchesRange;
+    });
+
+    // Tri
+    filtered.sort((a, b) => {
+        let valA = a[currentSort.column];
+        let valB = b[currentSort.column];
+
+        if (typeof valA === 'string') {
+            return currentSort.ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        } else {
+            return currentSort.ascending ? valA - valB : valB - valA;
+        }
+    });
+
+    // Rendu
+    const tbody = document.getElementById('weaponTableBody');
+    tbody.innerHTML = '';
+
+    filtered.forEach(w => {
+        const tr = document.createElement('tr');
+
+        // Variables d'affichage personnalisées
+        const displayDmg = w.damageDisplay || w.damage;
+        const displayPen = w.penetrationDisplay || w.penetration;
+        const displayFireRate = w.fireRateDisplay || w.fireRate;
+
+        let rangeBadgeClass = "badge-range-moyenne";
+        let translatedRange = t.rangeMid;
+        if (w.rangeClass === "Courte") {
+            rangeBadgeClass = "badge-range-courte";
+            translatedRange = t.rangeShort;
+        } else if (w.rangeClass === "Longue") {
+            rangeBadgeClass = "badge-range-longue";
+            translatedRange = t.rangeLong;
+        }
+
+        const translatedType = t.types[w.type] || w.type;
+        const currencySvg = getCurrencyIconSvg(18);
+        
+        tr.innerHTML = `
+            <td class="weapon-name-cell" data-weapon-name="${w.name}">
+                <span class="weapon-name-btn">
+                <strong>${w.name}</strong>
+                </span>
+            </td>
+            <td><span class="badge badge-type">${translatedType}</span></td>
+            <td>${w.caliber}</td>
+            <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${displayDmg}</td>
+            <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${displayPen}</td>
+            <td>${displayFireRate}</td>
+            <td>${w.muzzleVelocity}</td>
+            <td><span class="badge ${rangeBadgeClass}">${translatedRange}</span></td>
+            <td class="price-cell">
+                <span class="price-wrapper" title="${t.currency}">
+                <span>${w.price.toLocaleString(currentLang)}</span>
+                ${currencySvg}
+                </span>
+            </td>
         `;
 
+        // Attachement des événements de survol pour l'aperçu de l'arme
+        const nameCell = tr.querySelector('.weapon-name-cell');
+        nameCell.addEventListener('mouseenter', (e) => showPreviewCard(e, w));
+        nameCell.addEventListener('mousemove', (e) => positionPreviewCard(e));
+        nameCell.addEventListener('mouseleave', hidePreviewCard);
 
+        tbody.appendChild(tr);
+    });
 
-                // Attachement des événements de survol pour l'aperçu de l'arme
-                const nameCell = tr.querySelector('.weapon-name-cell');
-                nameCell.addEventListener('mouseenter', (e) => showPreviewCard(e, w));
-                nameCell.addEventListener('mousemove', (e) => positionPreviewCard(e));
-                nameCell.addEventListener('mouseleave', hidePreviewCard);
+    document.getElementById('itemCount').textContent = t.showing
+        .replace('{count}', filtered.length)
+        .replace('{total}', weaponsData.length);
+}
 
-                tbody.appendChild(tr);
-            });
+// GESTION DU SURVOL (HOVER PREVIEW)
+function showPreviewCard(e, weapon) {
+    const t = translations[currentLang];
 
-            document.getElementById('itemCount').textContent = t.showing
-                .replace('{count}', filtered.length)
-                .replace('{total}', weaponsData.length);
+    // 1. Mise à jour des textes statiques et labels traduits
+    document.getElementById('wpcName').textContent = weapon.name;
+    document.getElementById('wpcCaliber').textContent = weapon.caliber;
+    document.getElementById('wpcType').textContent = t.types[weapon.type] || weapon.type;
+
+    // Mise à jour traduite des labels de barres et footer
+    if (document.getElementById('wpcLblDamage')) document.getElementById('wpcLblDamage').textContent = t.lblDamage || 'Damage';
+    if (document.getElementById('wpcLblRange')) document.getElementById('wpcLblRange').textContent = t.lblRange || 'Range';
+    if (document.getElementById('wpcLblControl')) document.getElementById('wpcLblControl').textContent = t.lblControl || 'Control';
+    if (document.getElementById('wpcLblHandling')) document.getElementById('wpcLblHandling').textContent = t.lblHandling || 'Handling';
+    if (document.getElementById('wpcLblStability')) document.getElementById('wpcLblStability').textContent = t.lblStability || 'Stability';
+    if (document.getElementById('wpcLblAccuracy')) document.getElementById('wpcLblAccuracy').textContent = t.lblAccuracy || 'Accuracy';
+    if (document.getElementById('wpcLblPrice')) document.getElementById('wpcLblPrice').textContent = t.lblPrice || 'Base Price';
+
+    // 2. Gestion du badge de portée
+    const rangeElem = document.getElementById('wpcRange');
+    rangeElem.className = 'badge';
+    if (weapon.rangeClass === "Courte") {
+        rangeElem.classList.add('badge-range-courte');
+        rangeElem.textContent = t.rangeShort;
+    } else if (weapon.rangeClass === "Longue") {
+        rangeElem.classList.add('badge-range-longue');
+        rangeElem.textContent = t.rangeLong;
+    } else {
+        rangeElem.classList.add('badge-range-moyenne');
+        rangeElem.textContent = t.rangeMid;
+    }
+
+    // 3. Image de l'arme avec fallback sécurisé
+    const imgElem = document.getElementById('wpcImg');
+    imgElem.onerror = null;
+    imgElem.onerror = function () {
+        if (weapon.fallback && this.src !== weapon.fallback) {
+            this.src = weapon.fallback;
         }
+    };
+    imgElem.src = weapon.img;
 
-        // GESTION DU SURVOL (HOVER PREVIEW)
-        function showPreviewCard(e, weapon) {
-            const t = translations[currentLang];
+    // 4. Barres de statistiques
+    function setBar(barId, valId, value) {
+        const val = value || 0;
+        document.getElementById(barId).style.width = val + '%';
+        document.getElementById(valId).textContent = val;
+    }
+    setBar('wpcBarDamage', 'wpcValDamage', weapon.statDmg);
+    setBar('wpcBarRange', 'wpcValRange', weapon.statRange);
+    setBar('wpcBarControl', 'wpcValControl', weapon.statCtrl);
+    setBar('wpcBarHandling', 'wpcValHandling', weapon.statHand);
+    setBar('wpcBarStability', 'wpcValStability', weapon.statStab);
+    setBar('wpcBarAccuracy', 'wpcValAccuracy', weapon.statAcc);
 
-            // 1. Mise à jour des textes statiques et labels traduits
-            document.getElementById('wpcName').textContent = weapon.name;
-            document.getElementById('wpcCaliber').textContent = weapon.caliber;
-            document.getElementById('wpcType').textContent = t.types[weapon.type] || weapon.type;
+    // 5. Prix et monnaie
+    document.getElementById('wpcPrice').textContent = weapon.price.toLocaleString(currentLang);
+    document.getElementById('wpcCurrencyIcon').innerHTML = getCurrencyIconSvg(20);
 
-            // Mise à jour traduite des labels de barres et footer
-            if (document.getElementById('wpcLblDamage')) document.getElementById('wpcLblDamage').textContent = t.lblDamage || 'Damage';
-            if (document.getElementById('wpcLblRange')) document.getElementById('wpcLblRange').textContent = t.lblRange || 'Range';
-            if (document.getElementById('wpcLblControl')) document.getElementById('wpcLblControl').textContent = t.lblControl || 'Control';
-            if (document.getElementById('wpcLblHandling')) document.getElementById('wpcLblHandling').textContent = t.lblHandling || 'Handling';
-            if (document.getElementById('wpcLblStability')) document.getElementById('wpcLblStability').textContent = t.lblStability || 'Stability';
-            if (document.getElementById('wpcLblAccuracy')) document.getElementById('wpcLblAccuracy').textContent = t.lblAccuracy || 'Accuracy';
-            if (document.getElementById('wpcLblPrice')) document.getElementById('wpcLblPrice').textContent = t.lblPrice || 'Base Price';
+    positionPreviewCard(e);
+    previewCard.classList.add('active');
+}
 
-            // 2. Gestion du badge de portée
-            const rangeElem = document.getElementById('wpcRange');
-            rangeElem.className = 'badge';
-            if (weapon.rangeClass === "Courte") {
-                rangeElem.classList.add('badge-range-courte');
-                rangeElem.textContent = t.rangeShort;
-            } else if (weapon.rangeClass === "Longue") {
-                rangeElem.classList.add('badge-range-longue');
-                rangeElem.textContent = t.rangeLong;
-            } else {
-                rangeElem.classList.add('badge-range-moyenne');
-                rangeElem.textContent = t.rangeMid;
-            }
+function positionPreviewCard(e) {
+    const cardWidth = 340;
+    const cardHeight = 420;
+    const margin = 18;
 
-            // 3. Image de l'arme avec fallback sécurisé
-            const imgElem = document.getElementById('wpcImg');
-            imgElem.onerror = null; // Réinitialise l'événement avant d'affecter la source
-            imgElem.onerror = function () {
-                if (weapon.fallback && this.src !== weapon.fallback) {
-                    this.src = weapon.fallback;
-                }
-            };
-            imgElem.src = weapon.img;
+    let left = e.clientX + margin;
+    let top = e.clientY - (cardHeight / 2);
 
-            // 4. Barres de statistiques
-            function setBar(barId, valId, value) {
-                const val = value || 0;
-                document.getElementById(barId).style.width = val + '%';
-                document.getElementById(valId).textContent = val;
-            }
-            setBar('wpcBarDamage', 'wpcValDamage', weapon.statDmg);
-            setBar('wpcBarRange', 'wpcValRange', weapon.statRange);
-            setBar('wpcBarControl', 'wpcValControl', weapon.statCtrl);
-            setBar('wpcBarHandling', 'wpcValHandling', weapon.statHand);
-            setBar('wpcBarStability', 'wpcValStability', weapon.statStab);
-            setBar('wpcBarAccuracy', 'wpcValAccuracy', weapon.statAcc);
+    // Ajustement si débordement horizontal à droite
+    if (left + cardWidth > window.innerWidth - 10) {
+        left = e.clientX - cardWidth - margin;
+    }
 
-            // 5. Prix et monnaie
-            document.getElementById('wpcPrice').textContent = weapon.price.toLocaleString(currentLang);
-            document.getElementById('wpcCurrencyIcon').innerHTML = getCurrencyIconSvg(20);
+    // Ajustement si débordement vertical en haut ou en bas
+    if (top < 15) {
+        top = 15;
+    } else if (top + cardHeight > window.innerHeight - 15) {
+        top = window.innerHeight - cardHeight - 15;
+    }
 
-            positionPreviewCard(e);
-            previewCard.classList.add('active');
-        }
+    previewCard.style.left = `${left}px`;
+    previewCard.style.top = `${top}px`;
+}
 
-
-        function positionPreviewCard(e) {
-            const cardWidth = 340;
-            const cardHeight = 420;
-            const margin = 18;
-
-            let left = e.clientX + margin;
-            let top = e.clientY - (cardHeight / 2);
-
-            // Ajustement si débordement horizontal à droite
-            if (left + cardWidth > window.innerWidth - 10) {
-                left = e.clientX - cardWidth - margin;
-            }
-
-            // Ajustement si débordement vertical en haut ou en bas
-            if (top < 15) {
-                top = 15;
-            } else if (top + cardHeight > window.innerHeight - 15) {
-                top = window.innerHeight - cardHeight - 15;
-            }
-
-            previewCard.style.left = `${left}px`;
-            previewCard.style.top = `${top}px`;
-        }
-
-        function hidePreviewCard() {
-            previewCard.classList.remove('active');
-        }
+function hidePreviewCard() {
+    previewCard.classList.remove('active');
+}
     </script>
 </body>
 
