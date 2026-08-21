@@ -1418,7 +1418,7 @@ function renderTable() {
                 </span>
             </td>
             <td><span class="badge badge-type ${typeBadgeClass}">${translatedType}</span></td>
-            <td>${w.caliber}</td>
+            <td>${t.types[w.caliber] || w.caliber}</td>
             <td class="stat-val ${w.damage >= 40 ? 'stat-high' : ''}">${displayDmg}</td>
             <td class="stat-val ${w.penetration >= 40 ? 'stat-high' : (w.penetration < 30 ? 'stat-low' : 'stat-mid')}">${displayPen}</td>
             <td>${displayFireRate}</td>
