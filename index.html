@@ -1436,6 +1436,9 @@ function renderTable() {
     filtered.forEach(w => {
         const tr = document.createElement('tr');
 
+        // Traduction du nom de l'arme s'il existe dans la langue active, sinon nom brut
+        const translatedName = (t.weapons && t.weapons[w.name]) || w.name;
+        
         // Variables d'affichage personnalisées
         const displayDmg = w.damageDisplay || w.damage;
         const displayPen = w.penetrationDisplay || w.penetration;
@@ -1457,9 +1460,9 @@ function renderTable() {
         
         tr.innerHTML = `
             <td class="weapon-name-cell" data-weapon-name="${w.name}">
-                <span class="weapon-name-btn">
-                <strong>${w.name}</strong>
-                </span>
+            <span class="weapon-name-btn">
+            <strong>${translatedName}</strong>
+            </span>
             </td>
             <td><span class="badge badge-type ${typeBadgeClass}">${translatedType}</span></td>
             <td>${t.types[w.caliber] || w.caliber}</td>
@@ -1495,7 +1498,9 @@ function showPreviewCard(e, weapon) {
     const t = translations[currentLang];
 
     // 1. Mise à jour des textes statiques et labels traduits
-    document.getElementById('wpcName').textContent = weapon.name;
+const translatedName = (t.weapons && t.weapons[weapon.name]) || weapon.name;
+document.getElementById('wpcName').textContent = translatedName;
+
     document.getElementById('wpcCaliber').textContent = weapon.caliber;
 const wpcTypeElem = document.getElementById('wpcType');
 wpcTypeElem.className = `badge badge-type ${getTypeBadgeClass(weapon.type)}`;
