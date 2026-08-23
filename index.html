@@ -830,6 +830,11 @@
                     "Pistolet": "Pistol",
                     "Spécial": "Special",
                     "Flèche": "Arrow"
+                },
+                weapons: {
+    "Arc à poulies": "Compound Bow",
+    "Carabine à levier": "Lever-Action Rifle",
+    "Canon double 725": "725 Double Barrel"
                 }
             },
             fr: {
@@ -878,6 +883,11 @@
                     "Pistolet": "Pistolet",
                     "Spécial": "Spécial",
                     "Flèche": "Flèche"
+                },
+                weapons: {
+    "Arc à poulies": "Arc à poulies",
+    "Carabine à levier": "Carabine à levier",
+    "Canon double 725": "Canon double 725"
                 }
                     
             },
@@ -926,9 +936,15 @@
     "Fusil de sniper (FS)": "Scharfschützengewehr",
     "Pistolet": "Pistole",
     "Spécial": "Spezialwaffe",
-    "Flèche": "Pfeilgeschoss"
-}
+    "Flèche": "Pfeilgeschoss"},
+            weapons: {
+    "Arc à poulies": "Compoundbogen",
+    "Carabine à levier": "Unterhebelrepetierer",
+    "Canon double 725": "725 Doppelflinte"
+            }
+            
             },
+                
             es: {
                 title: "Delta Force S10 - Armería",
                 langLabel: "Idioma:",
@@ -974,7 +990,11 @@
     "Fusil de sniper (FS)": "Fusil de francotirador",
     "Pistolet": "Pistola",
     "Spécial": "Especial",
-    "Flèche": "Flecha"
+    "Flèche": "Flecha"},
+                weapons: {
+    "Arc à poulies": "Arco compuesto",
+    "Carabine à levier": "Carabina de palanca",
+    "Canon double 725": "Canon doble 725"
 }
             },
             it: {
@@ -1023,7 +1043,12 @@
     "Pistolet": "Pistola",
     "Spécial": "Speciale",
     "Flèche": "Dardo"
-}
+},
+                weapons: {
+    "Arc à poulies": "Arco compound",
+    "Carabine à levier": "Carabina a leva",
+    "Canon double 725": "Doppietta 725"
+                }
             },
             ar: {
                 title: "دلتا فورس S10 - أداة الترسانة",
@@ -1071,7 +1096,12 @@
     "Pistolet": "مسدس",
     "Spécial": "خاص",
     "Flèche": "سهمية"
-}
+},
+                weapons: {
+    "Arc à poulies": "قوس مركب",
+    "Carabine à levier": "بندقية رافعة",
+    "Canon double 725": "725 ثنائي الماسورة"
+                }
             },
             zh: {
                 title: "三角洲行动 S10 - 武器库工具",
@@ -1119,7 +1149,12 @@
     "Pistolet": "手枪",
     "Spécial": "特殊武器",
     "Flèche": "箭弹"
-}
+},
+                weapons: {
+    "Arc à poulies": "复合弓",
+    "Carabine à levier": "杠杆步枪",
+    "Canon double 725": "725 双管霰弹枪"
+                }
             },
             ru: {
                 title: "Delta Force S10 - Оружейная",
@@ -1167,7 +1202,12 @@
     "Pistolet": "Пистолет",
     "Spécial": "Специальное",
     "Flèche": "Оперенный"
-}
+},
+                weapons: {
+    "Arc à poulies": "Блочный лук",
+    "Carabine à levier": "Винтовка с рычажным взводом",
+    "Canon double 725": "725 Двустволка"
+                }
             }
         };
 
@@ -1208,20 +1248,7 @@ const weaponsData = [
     { name: "Vector", type: "PM", caliber: ".45 ACP", damage: 32, penetration: 28, fireRate: 1091, muzzleVelocity: 500, price: 288427, img: "images/weapons/vector.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/vector.webp", statDmg: 32, statRange: 20, statCtrl: 38, statHand: 38, statStab: 42, statAcc: 52 },
     { name: "P90", type: "PM", caliber: "5.7x28 mm", damage: 32, penetration: 35, fireRate: 898, muzzleVelocity: 450, price: 43990, img: "images/weapons/p90.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/p90.webp", statDmg: 32, statRange: 20, statCtrl: 48, statHand: 56, statStab: 45, statAcc: 60 },
     { name: "MP5", type: "PM", caliber: "9x19 mm", damage: 30, penetration: 32, fireRate: 820, muzzleVelocity: 450, price: 30272, img: "images/weapons/mp5.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/mp5.webp", statDmg: 30, statRange: 20, statCtrl: 53, statHand: 66, statStab: 45, statAcc: 68 },
-    { name: "FS12", 
-      type: "Fusil à pompe", 
-      caliber: "Calibre 12", 
-      damage: 144, 
-      penetration: 19, 
-      fireRate: 300, 
-      damageDisplay: "14x8 / 18x8",
-      penetrationDisplay: "16x8 / 19x8",
-      fireRateDisplay: "300 / 71",
-      muzzleVelocity: 450, 
-      price: 48234, 
-      img: "images/weapons/fs12.webp", 
-      fallback: "https://deltaforcedb.com/assets/images/weapons/fs12.webp", 
-      statDmg: 144, statRange: 12, statCtrl: 30, statHand: 52, statStab: 47, statAcc: 51 },
+    { name: "FS12", type: "Fusil à pompe", caliber: "Calibre 12", damage: 144, penetration: 19, fireRate: 300, damageDisplay: "14x8 / 18x8",penetrationDisplay: "16x8 / 19x8",fireRateDisplay: "300 / 71",muzzleVelocity: 450, price: 48234, img: "images/weapons/fs12.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/fs12.webp", statDmg: 144, statRange: 12, statCtrl: 30, statHand: 52, statStab: 47, statAcc: 51 },
     { name: "Canon double 725", type: "Fusil à pompe", caliber: "Calibre 12", damage: 136, damageDisplay: "17x8", penetration: 18, penetrationDisplay: "18x8", fireRate: 375, muzzleVelocity: 400, price: 24012, img: "images/weapons/m4a1.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m4a1.webp", statDmg: 136, statRange: 15, statCtrl: 25, statHand: 50, statStab: 48, statAcc: 47 },
     { name: "M870", type: "Fusil à pompe", caliber: "Calibre 12", damage: 136, damageDisplay: "17x8", penetration: 16, penetrationDisplay: "16x8", fireRate: 74, muzzleVelocity: 400, price: 3507, img: "images/weapons/m870.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/m870.webp", statDmg: 136, statRange: 12, statCtrl: 26, statHand: 57, statStab: 41, statAcc: 49 },
     { name: "S12K", type: "Fusil à pompe", caliber: "Calibre 12", damage: 104, damageDisplay: "13x8", penetration: 16, penetrationDisplay: "16x8", fireRate: 300, muzzleVelocity: 300, price: 29455, img: "images/weapons/s12k.webp", fallback: "https://deltaforcedb.com/assets/images/weapons/s12k.webp", statDmg: 104, statRange: 10, statCtrl: 36, statHand: 55, statStab: 49, statAcc: 48 },
